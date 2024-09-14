@@ -5,10 +5,12 @@ async function handleSubmit() {
     e.preventDefault();
 
     const formData = new FormData(form);
+    const formBody = new URLSearchParams(formData).toString();
+
     try {
-      const res = await axios.post("/api/signup", formData, {
+      const res = await axios.post("/api/signup", formBody, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       });
 

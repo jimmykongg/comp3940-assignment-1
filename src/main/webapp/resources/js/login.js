@@ -5,11 +5,12 @@ async function handleSubmit() {
     e.preventDefault();
 
     const formData = new FormData(form);
+    const formBody = new URLSearchParams(formData).toString();
+
     try {
-      console.log("logging in now");
-      const res = await axios.post("/api/login", formData, {
+      const res = await axios.post("/api/login", formBody, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       });
 
