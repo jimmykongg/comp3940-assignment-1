@@ -22,8 +22,9 @@ public class SignupServlet extends HttpServlet {
             return;
         };
 
+        Connection con = null;
         try {
-            Connection con = DatabaseConnection.initializeDatabase();
+            con = DatabaseConnection.initializeDatabase();
 
             if (isUserNotExisted(username, con, res)) {
                 insertUser(username, password, con, res);
@@ -33,20 +34,28 @@ public class SignupServlet extends HttpServlet {
             }
         } catch (SQLException e) {
             res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            DatabaseConnection.closeConnection(con);
             e.printStackTrace();
         }
     }
 
     private void insertUser(String username, String password, Connection con, HttpServletResponse res) throws SQLException {
-        String query = "INSERT INTO app_user (username, password, role) VALUES (?, ?, ?)";
+        PreparedStatement stm = null;
+        try {
+            String query = "INSERT INTO app_user (username, password, role) VALUES (?, ?, ?)";
 
-        PreparedStatement stm = con.prepareStatement(query);
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        stm.setString(1, username);
-        stm.setString(2, hashedPassword);
-        stm.setString(3, "general");
+            stm = con.prepareStatement(query);
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+            stm.setString(1, username);
+            stm.setString(2, hashedPassword);
+            stm.setString(3, "general");
 
-        if (stm.executeUpdate() != 1) throw new SQLException();
+            if (stm.executeUpdate() != 1) throw new SQLException();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            try { stm.close(); } catch (Exception e) {}
+        }
     }
 
     private boolean isUserNotExisted(String username, Connection con, HttpServletResponse res) throws SQLException {
