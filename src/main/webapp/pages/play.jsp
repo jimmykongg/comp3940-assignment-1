@@ -12,15 +12,18 @@
     <title>playQuizzes</title>
 </head>
 <body>
-    <div>For media</div>
-    <%
-      Integer category = (Integer) request.getAttribute("category");
-      Integer curQuizIndex = (Integer) request.getAttribute("quizIndex");
+<%
+    Integer category = (Integer) request.getAttribute("category");
+    Integer curQuizIndex = (Integer) request.getAttribute("quizIndex");
+    Map<String, String> quiz = (Map<String, String>) request.getAttribute("quiz");
 
+    // This is the media_ID.
+    // I have to comment them out because they are all null
+    // And it will break the code if I try to make them an integer.
+    // Integer mediaID = Integer.parseInt(quiz.get("media_id"));
+%>
+    <div>Media Section</div>
 
-
-      Map<String, String> quiz = (Map<String, String>) request.getAttribute("quiz");
-    %>
     <p><%= quiz.get("description") %></p>
     <p>In variable: <%= curQuizIndex %>, In session: <%= session.getAttribute("quizIndex") %></p>
     <form id="answerForm" action="/WebApp_war/play" method="post">

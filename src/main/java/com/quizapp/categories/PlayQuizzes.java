@@ -22,18 +22,23 @@ public class PlayQuizzes extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(PlayQuizzes.class.getName());
 
-    // I need category id and current quiz ID which is stored in the session.
-    // Data I need from the database:
-    // quizzes: id, description, media_id
-    // answers: description, right_answer
+    // This doGet function will get the Data that we need from database
+    // and then forward the request with the data to play.jsp
+    // Data that will be fetched from database:
+    // from quizzes table: id, description, media_id
+    // from answers table: id, description, right_answer
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
+        // Get the previous quiz Index from session.
+        // I create a session in Categories.java, just a dummy session
         Integer preQuizIndex = (Integer) session.getAttribute("quizIndex");
+        // Get the categoryID from url
         Integer categoryId = Integer.parseInt(req.getParameter("category"));
 
-        // Query preparation for quiz
+        // We need to query both quizzes and answers table, here are some preparation.
+        // use the previous quiz index so we can find the next quiz index
         String quizSql = "SELECT id, description, media_id FROM quizzes WHERE category_id = ? AND id > ? LIMIT 1";
         String ansSql = "SELECT id, description FROM answers WHERE quiz_id = ?";
         List<Object> quizParams = new ArrayList<>();
@@ -43,9 +48,10 @@ public class PlayQuizzes extends HttpServlet {
 
 
         try{
+            // a general querying function, used when you are sure only one record(row) will be return.
+            // note it store the key value pair in String, String format, sometime need casting
             Map<String, String> quiz = DatabaseConnection.queryOne(quizSql, quizParams);
             if(quiz.isEmpty()){
-                //session.setAttribute("quizIndex", 1); usually I need to do this,but I set it in Categories servlet.
                 req.getRequestDispatcher("./Categories").forward(req, res);
             }else{
                 // Get the current quiz's index to query for answers for this quiz.
@@ -57,7 +63,8 @@ public class PlayQuizzes extends HttpServlet {
                     req.setAttribute("message", "No answer for this question");
                     req.getRequestDispatcher("/page/error.jsp").forward(req, res);
                 }else{
-                    req.setAttribute("quiz", quiz);
+                    // these are the data you want to pass to the jsp file.
+                    req.setAttribute("quiz", quiz); // This is the quiz query result, one row.
                     req.setAttribute("quizIndex", curQuizIndex);
                     req.setAttribute("answers", answers);
                     req.setAttribute("category", categoryId);
