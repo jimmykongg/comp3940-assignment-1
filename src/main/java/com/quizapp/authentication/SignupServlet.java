@@ -16,6 +16,9 @@ public class SignupServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
+        System.out.println("username: " + username);
+        System.out.println("password: " + password);
+
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             res.getWriter().write("{\"message\": \"Invalid input\"}");
