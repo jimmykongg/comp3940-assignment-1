@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,14 +20,16 @@ public class Categories extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+        HttpSession session = req.getSession();
+        session.setAttribute("quizIndex", 0);
         String sql = "SELECT * FROM category";
         try {
             List<Map<String, String>> categories = DatabaseConnection.query(sql, null);
             req.setAttribute("categories", categories);
-            req.getRequestDispatcher("/categories.jsp").forward(req, res);
+            req.getRequestDispatcher("/pages/categories.jsp").forward(req, res);
         }catch(SQLException e){
             req.setAttribute("message", e.getMessage());
-            req.getRequestDispatcher("/error.jsp").forward(req, res);
+            req.getRequestDispatcher("/pages/error.jsp").forward(req, res);
         }
     }
 }

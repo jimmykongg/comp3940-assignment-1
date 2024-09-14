@@ -46,7 +46,7 @@ public class DatabaseConnection {
         }
     }
 
-    public static List<Map<String, String>> query(String sql, List<String> params) throws SQLException{
+    public static List<Map<String, String>> query(String sql, List<Object> params) throws SQLException{
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -55,7 +55,9 @@ public class DatabaseConnection {
             pstmt = con.prepareStatement(sql);
             if(params != null) {
                 for(int i=0; i<params.size(); i++) {
-                    pstmt.setString(i+1, params.get(i));
+                    Object param = params.get(i);
+                    if(param instanceof String) pstmt.setString(i+1, (String) param);
+                    else if(param instanceof Integer) pstmt.setInt(i+1, (Integer)param);
                 }
             }
             rs = pstmt.executeQuery();
@@ -80,8 +82,42 @@ public class DatabaseConnection {
             try { pstmt.close(); } catch (Exception e) {}
             try { con.close(); } catch (Exception e) {}
         }
-
     }
 
-
+    public static Map<String, String> queryOne(String sql, List<Object> params) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            con = DatabaseConnection.initializeDatabase();
+            pstmt = con.prepareStatement(sql);
+            if(params != null) {
+                for(int i=0; i<params.size(); i++) {
+                    Object param = params.get(i);
+                    if(param instanceof String) pstmt.setString(i+1, (String) param);
+                    else if(param instanceof Integer) pstmt.setInt(i+1, (Integer)param);
+                }
+            }
+            rs = pstmt.executeQuery();
+            List<String> columnNames = new ArrayList<>();
+            ResultSetMetaData rsMetaData = rs.getMetaData();
+            for(int i=0;i<rsMetaData.getColumnCount();i++) {
+                columnNames.add(rsMetaData.getColumnName(i+1));
+            }
+            Map<String, String> record = new HashMap<>();
+            if(rs.next()){
+                for(String columnName : columnNames) {
+                    record.put(columnName, rs.getString(columnName));
+                }
+                return record;
+            }
+            return record;
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            try { rs.close(); } catch (Exception e) {}
+            try { pstmt.close(); } catch (Exception e) {}
+            try { con.close(); } catch (Exception e) {}
+        }
+    }
 }

@@ -9,23 +9,18 @@
 </head>
 <body>
 <div>
-    <table>
-        <tr>
-            <td>id</td>
-            <td>name</td>
-        </tr>
+
         <%
             List<Map<String, String>> categories = (List<Map<String, String>>) request.getAttribute("categories");
             for(Map<String, String> category : categories){
         %>
-        <tr>
-            <td><%=category.get("id")%></td>
-            <td><%=category.get("name")%></td>
-        </tr>
+            <div>
+                <a href="/WebApp_war/play?category=<%= category.get("id") %>"> <%= category.get("name") %> </a>
+            </div>
         <%
             }
         %>
-    </table>
+
 </div>
 </body>
 </html>
