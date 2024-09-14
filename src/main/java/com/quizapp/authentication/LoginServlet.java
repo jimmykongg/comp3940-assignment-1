@@ -21,6 +21,7 @@ public class LoginServlet extends HttpServlet {
         if (authenticateUser(username, password)) {
             HttpSession session = req.getSession();
             session.setAttribute("username", username);
+            session.setAttribute("role", "general");
 
             out.println("{\"message\": \"Login successful\", \"status\": \"ok\"}");
         } else {
