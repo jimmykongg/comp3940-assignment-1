@@ -27,6 +27,9 @@ public class SignupServlet extends HttpServlet {
 
             if (isUserNotExisted(username, con, res)) {
                 insertUser(username, password, con, res);
+                HttpSession session = req.getSession();
+                session.setAttribute("username", username);
+                session.setAttribute("role", "general");
                 res.getWriter().write("{\"message\": \"Signup successful\"}");
             } else {
                 res.getWriter().write("{\"message\": \"Signup failed\"}");
