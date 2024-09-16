@@ -14,7 +14,7 @@ async function handleSubmit() {
         },
       });
 
-      console.log(res.data.message);
+      window.location.href="/categories";
     } catch (e) {
       console.log("Error", e);
     }

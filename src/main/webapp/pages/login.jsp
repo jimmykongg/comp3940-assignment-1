@@ -6,13 +6,14 @@ contentType="text/html;charset=UTF-8" language="java" %>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/resources/css/login.css" rel="stylesheet" />
+    <link href="/resources/css/logins.css" rel="stylesheet" />
     <script src="/resources/js/login.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>QuizApp - Login</title>
   </head>
 
   <body>
+    <div class="wrapper">
     <h2>Login Form</h2>
     <form id="loginForm">
       <div>
@@ -29,6 +30,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
         <button type="submit">Login</button>
       </div>
     </form>
+    </div>
   </body>
 </html>
 

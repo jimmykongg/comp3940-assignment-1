@@ -10,13 +10,14 @@ public class LogoutServlet extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
 
-        res.setContentType("application/json");
-        PrintWriter out = res.getWriter();
-
-        if (session != null) {
+        if (session.getAttribute("username") != null) {
             session.invalidate();
-            out.println("{\"message\": \"Logout successful\", \"status\": \"ok\"}");
+            res.sendRedirect("/");
         } else {
+            res.setContentType("application/json");
+            PrintWriter out = res.getWriter();
+
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             out.println("{\"message\": \"Operation not allowed\"}");
         }
     }
