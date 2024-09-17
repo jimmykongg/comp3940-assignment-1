@@ -6,8 +6,6 @@ contentType="text/html;charset=UTF-8" language="java" %>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="/resources/js/signup.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>QuizApp - Signup</title>
   </head>
 
@@ -29,6 +27,8 @@ contentType="text/html;charset=UTF-8" language="java" %>
         <button type="submit">Sign Up</button>
       </div>
     </form>
+    <script type="module" src="/resources/js/signup.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </body>
 </html>
 

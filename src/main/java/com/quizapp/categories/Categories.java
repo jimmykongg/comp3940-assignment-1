@@ -20,8 +20,11 @@ public class Categories extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
-        session.setAttribute("quizIndex", 0);
+        HttpSession session = req.getSession(false);
+        System.out.println(session);
+        if(session == null) req.getRequestDispatcher("/pages/index.js").forward(req, res);
+        else session.setAttribute("quizIndex", 0);
+
         String sql = "SELECT * FROM category";
         try {
             List<Map<String, String>> categories = DatabaseConnection.query(sql, null);

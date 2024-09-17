@@ -30,6 +30,7 @@ public class PlayQuizzes extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+        System.out.println("doGet of play Servlet is called");
         HttpSession session = req.getSession();
         // Get the previous quiz Index from session.
         // I create a session in Categories.java, just a dummy session
@@ -52,8 +53,10 @@ public class PlayQuizzes extends HttpServlet {
             // note it store the key value pair in String, String format, sometime need casting
             Map<String, String> quiz = DatabaseConnection.queryOne(quizSql, quizParams);
             if(quiz.isEmpty()){
-                req.getRequestDispatcher("./Categories").forward(req, res);
+                System.out.println("no quiz is found");
+                res.sendRedirect("/categories");
             }else{
+                System.out.println("find a quiz");
                 // Get the current quiz's index to query for answers for this quiz.
                 Integer curQuizIndex = Integer.parseInt(quiz.get("id"));
                 ansParams.add(curQuizIndex);
@@ -82,24 +85,21 @@ public class PlayQuizzes extends HttpServlet {
 
         HttpSession session = req.getSession();
         Integer curQuizIndex = Integer.parseInt(req.getParameter("curQuizIndex"));
-        System.out.println("curQuizIndex: " + curQuizIndex);
         Integer selectedAnswerId = Integer.parseInt(req.getParameter("selectedAnswer"));
-        System.out.println("selectedAnswerId: " + selectedAnswerId);
         String category = req.getParameter("category");
         String sql = "SELECT right_answer FROM answers WHERE id = ?";
-        String redirectUrl = "/WebApp_war/play?category=" + category;
+        String redirectUrl = "/play?category=" + category;
         List<Object> params = new ArrayList<>();
         params.add(selectedAnswerId);
 
         try{
             Map<String, String> retInString = DatabaseConnection.queryOne(sql, params);
-            System.out.println("Query result: " + retInString.get("right_answer"));
-
-            String rightAnswerString = retInString.get("right_answer");
-            System.out.println("Retrieved right_answer: " + rightAnswerString);
-
             // the right answer is selected
-            if(retInString.get("right_answer").equals("t")) session.setAttribute("quizIndex", curQuizIndex);
+            if(retInString.get("right_answer").equals("t")){
+                System.out.println("Selected the right answer, change the quizIndex to" + curQuizIndex);
+                session.setAttribute("quizIndex", curQuizIndex);
+            }
+            System.out.println("redirecting to url: " + redirectUrl);
             res.sendRedirect(redirectUrl);
         }catch(SQLException e){
             req.setAttribute("message", e.getMessage());

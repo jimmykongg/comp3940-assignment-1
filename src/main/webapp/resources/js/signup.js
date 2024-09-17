@@ -1,4 +1,5 @@
 async function handleSubmit() {
+  console.log("signup form submitted");
   const form = document.getElementById("signupForm");
 
   form.addEventListener("submit", async (e) => {
@@ -8,14 +9,16 @@ async function handleSubmit() {
     const formBody = new URLSearchParams(formData).toString();
 
     try {
-      const res = await axios.post("/api/signup", formBody, {
+      console.log("calling api");
+      const res = await axios.post("/WebApp_war/api/signup", formBody, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
+      console.log("successfully call the api")
 
       console.log(res.data.message);
-      window.location.href="/categories";
+      window.location.href="/WebApp_war/categories";
     } catch (e) {
       console.log("Error", e);
     }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="QuizApp:war exploded" />
+      <artifact name="/" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,9 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0e2c229-246b-4b15-a98a-2450ca81cd62" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/categories.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/categories.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/logins.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/signup.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/signup.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,29 +62,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.quizapp.executor&quot;: &quot;Run&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/auth&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/ziqi/Documents/BcitStudy/Term3/Client-Server/Assignment1/project/comp3940-assignment-1&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Tomcat Server.quizapp.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "dev",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/ziqi/Documents/BcitStudy/Term3/Client-Server/Assignment1/project/comp3940-assignment-1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/quizapp/database" />
@@ -89,18 +98,18 @@
   </component>
   <component name="RunManager">
     <configuration name="quizapp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.29" ALTERNATIVE_JRE_ENABLED="false" show_console_on_std_err="true" show_console_on_std_out="true">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8082" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="QuizApp:war exploded">
+        <artifact name="/">
           <settings>
-            <option name="CONTEXT_PATH" value="/" />
+            <option name="CONTEXT_PATH" value="" />
           </settings>
         </artifact>
       </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="e1c78858-2b52-4bb9-b483-ce13690032d9" />
-        <option name="HTTP_PORT" value="8082" />
+        <option name="HTTP_PORT" value="8081" />
+        <option name="JNDI_PORT" value="2099" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -174,7 +183,7 @@
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
           <artifact name="QuizApp:war exploded" />
-          <artifact name="WebApp:war" />
+          <artifact name="/" />
         </option>
       </method>
     </configuration>

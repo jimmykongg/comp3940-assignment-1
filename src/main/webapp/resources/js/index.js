@@ -13,9 +13,14 @@ async function insertHTML() {
             </form>
         `
     } else {
+        console.log("making button")
         wrapper.innerHTML = `
             <form action="/login" method="GET">
                 <button type="submit">Log in</button>
+            </form>
+            
+            <form action="/signup" method="get">
+                <button type="submit">Sign up</button>
             </form>
         `
     }
@@ -23,7 +28,7 @@ async function insertHTML() {
 
 async function checkAuth() {
     try {
-        const res = await axios.get("/api/check-auth");
+        const res = await axios.get("/WebApp_war/api/check-auth");
         const data = res.data;
 
         return data.loggedIn;

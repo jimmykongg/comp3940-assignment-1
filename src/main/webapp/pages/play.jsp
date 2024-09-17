@@ -27,7 +27,7 @@
 
     <p><%= quiz.get("description") %></p>
     <p>In variable: <%= curQuizIndex %>, In session: <%= session.getAttribute("quizIndex") %></p>
-    <form id="answerForm" action="/WebApp_war/play" method="post">
+    <form id="answerForm" action="/play" method="post">
         <input type="hidden" name="selectedAnswer" id="selectedAnswer" value=""/>
         <input type="hidden" name="category" id="category" value="<%= category %>"/>
         <input type="hidden" name="curQuizIndex" id="curQuizIndex" value="<%=curQuizIndex%>"/>
