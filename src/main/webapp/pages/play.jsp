@@ -21,8 +21,9 @@
     // I have to comment them out because they are all null
     // And it will break the code if I try to make them an integer.
     // Integer mediaID = Integer.parseInt(quiz.get("media_id"));
+
 %>
-    <div>Media Section</div>
+    <div id="mediaDisplay">Media Section</div>
 
     <p><%= quiz.get("description") %></p>
     <p>In variable: <%= curQuizIndex %>, In session: <%= session.getAttribute("quizIndex") %></p>
@@ -44,6 +45,37 @@
     document.querySelector("#selectedAnswer").value = selectedId;
     document.querySelector("#answerForm").submit();
   }
+
+  function loadMedia(mediaId) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open('GET', '/WebApp_war/media?mediaId=' + mediaId, true);
+      xhttp.onload = function() {
+          if (xhttp.status === 200) {
+              const mediaData = JSON.parse(xhttp.responseText);
+              const mediaType = mediaData.mediaType;
+              const filePath = mediaData.filePath;
+              let mediaHTML = '';
+
+              if (mediaType === 'image') {
+                  mediaHTML = `<img src="/webapp/images/${filePath}" alt="Quiz Image" style="max-width: 600px;">`;
+              } else if (mediaType === 'video') {
+                  mediaHTML = `<iframe width="600" height="400" src="https://www.youtube.com/embed/" + ${filePath}"></iframe>`;
+              } else if (mediaType === 'audio') {
+                  mediaHTML = `<iframe width="600" height="400" src="https://www.youtube.com/embed/" +"${filePath}"></iframe>`;
+              }
+
+              document.getElementById('mediaDisplay').innerHTML = mediaHTML;
+          }
+      };
+      xhttp.send();
+  }
+
+  window.onload = function() {
+      const mediaId = '<%= quiz.get("media_id") %>';
+      if (mediaId) {
+          loadMedia(mediaId);
+      }
+  };
 </script>
 
 </body>
