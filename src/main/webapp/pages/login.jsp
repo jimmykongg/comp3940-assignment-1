@@ -13,6 +13,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
   </head>
 
   <body>
+    <div class="wrapper">
     <h2>Login Form</h2>
     <form id="loginForm">
       <div>
@@ -29,6 +30,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
         <button type="submit">Login</button>
       </div>
     </form>
+    </div>
   </body>
 </html>
 

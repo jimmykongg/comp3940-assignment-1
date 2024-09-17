@@ -1,8 +1,18 @@
 <html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/resources/css/index.css" rel="stylesheet" />
+  <script src="/resources/js/index.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <title>QuizApp - Homepage</title>
+</head>
+
 <body>
-<h2>Signup Form</h2>
-<form action="/api/logout" method="POST">
-    <button type="submit">Logout</button>
-</form>
+<div class="wrapper">
+  <h2>Welcome to Trivia Web app</h2>
+
+  <div class="buttonWrapper"></div>
+</div>
 </body>
 </html>
