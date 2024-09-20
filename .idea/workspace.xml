@@ -10,20 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0e2c229-246b-4b15-a98a-2450ca81cd62" name="Changes" comment="">
-<<<<<<< HEAD
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/categories.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/categories.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/signup.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/signup.js" afterDir="false" />
-=======
       <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/admin.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/AdminServlet.java" afterDir="false" />
@@ -31,7 +17,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/admin.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" afterDir="false" />
->>>>>>> feature/admin
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
