@@ -5,6 +5,7 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="WebApp" />
+          <element id="module-output" name="QuizApp" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.mindrot:jbcrypt:0.4" />
@@ -14,6 +15,7 @@
         </element>
       </element>
       <element id="javaee-facet-resources" facet="WebApp/web/Web" />
+      <element id="javaee-facet-resources" facet="QuizApp/web/Web" />
     </root>
   </artifact>
 </component>

@@ -46,9 +46,9 @@
     document.querySelector("#answerForm").submit();
   }
 
-  function loadMedia(mediaId) {
+  function loadMedia(url) {
       var xhttp = new XMLHttpRequest();
-      xhttp.open('GET', '/WebApp_war/media?mediaId=' + mediaId, true);
+      xhttp.open('GET', url, true);
       xhttp.onload = function() {
           if (xhttp.status === 200) {
               const mediaData = JSON.parse(xhttp.responseText);
@@ -59,7 +59,7 @@
               if (mediaType === 'image') {
                   mediaHTML = `<img src="/webapp/images/${filePath}" alt="Quiz Image" style="max-width: 600px;">`;
               } else if (mediaType === 'video') {
-                  mediaHTML = `<iframe width="600" height="400" src="https://www.youtube.com/embed/" + ${filePath}"></iframe>`;
+                  mediaHTML = `<iframe width="600" height="400" src="https://www.youtube.com/embed/" + ${filePath}" allow="encrypted-media"></iframe>`;
               } else if (mediaType === 'audio') {
                   mediaHTML = `<iframe width="600" height="400" src="https://www.youtube.com/embed/" +"${filePath}"></iframe>`;
               }
@@ -72,8 +72,9 @@
 
   window.onload = function() {
       const mediaId = '<%= quiz.get("media_id") %>';
-      if (mediaId) {
-          loadMedia(mediaId);
+      let url = '/media?mediaId=' + mediaId;
+      if (url) {
+          loadMedia(url);
       }
   };
 </script>

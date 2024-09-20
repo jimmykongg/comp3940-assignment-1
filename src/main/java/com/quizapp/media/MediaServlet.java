@@ -13,9 +13,9 @@ public class MediaServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String mediaId = req.getParameter("mediaId");
+        Integer mediaId = Integer.parseInt(req.getParameter("mediaId"));
 
-        if (mediaId == null || mediaId.isEmpty()) {
+        if (mediaId == null) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing media ID");
             return;
         }
