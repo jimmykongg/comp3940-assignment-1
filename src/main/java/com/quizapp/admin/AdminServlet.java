@@ -14,8 +14,10 @@ public class AdminServlet extends HttpServlet {
     // Retrieve a list of quizzes from quizzes table
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // Get URL parameters
-        int page = Integer.parseInt(req.getParameter("page"));
-        int limit = Integer.parseInt(req.getParameter("limit"));
+//        int page = Integer.parseInt(req.getParameter("page"));
+//        int limit = Integer.parseInt(req.getParameter("limit"));
+        int page = 1;
+        int limit = 10;
         int offset = (page - 1) * limit;
         Connection con = null;
 
