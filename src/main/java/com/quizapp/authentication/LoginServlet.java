@@ -5,6 +5,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.*;
 import java.sql.*;
+
 import org.mindrot.jbcrypt.BCrypt;
 import com.quizapp.database.DatabaseConnection;
 
@@ -15,13 +16,14 @@ public class LoginServlet extends HttpServlet {
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        String role = authenticateUser(username, password);
 
         PrintWriter out = res.getWriter();
 
-        if (authenticateUser(username, password)) {
+        if (role != null) {
             HttpSession session = req.getSession();
             session.setAttribute("username", username);
-            session.setAttribute("role", "general");
+            session.setAttribute("role", role);
 
             out.println("{\"message\": \"Login successful\", \"status\": \"ok\"}");
         } else {
@@ -31,8 +33,8 @@ public class LoginServlet extends HttpServlet {
         out.flush();
     }
 
-    private boolean authenticateUser(String username, String password) {
-        String query = "SELECT password FROM app_user WHERE username = ?";
+    private String authenticateUser(String username, String password) {
+        String query = "SELECT password, role FROM app_user WHERE username = ?";
 
         try {
             Connection con = DatabaseConnection.initializeDatabase();
@@ -42,13 +44,15 @@ public class LoginServlet extends HttpServlet {
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
                     String hashedPassword = rs.getString("password");
-                    return BCrypt.checkpw(password, hashedPassword);
+                    boolean authenticated = BCrypt.checkpw(password, hashedPassword);
+
+                    if (authenticated) return rs.getString("role");
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
 }
