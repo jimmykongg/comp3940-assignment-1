@@ -15,9 +15,9 @@
         for (Map<String, String> category : categories) {
     %>
     <div>
-        <a href="/WebApp_war/play?category=<%= category.get("id") %>"><%= category.get("name") %> (Regular)</a>
+        <a href="/play?category=<%= category.get("id") %>"><%= category.get("name") %> (Regular)</a>
         &nbsp&nbsp&nbsp&nbsp&nbsp
-        <a href="/WebApp_war/autoplay?category=<%= category.get("id") %>"><%= category.get("name") %> (AutoPlay)</a>
+        <a href="/autoplay?category=<%= category.get("id") %>"><%= category.get("name") %> (AutoPlay)</a>
     </div>
     <%
         }
