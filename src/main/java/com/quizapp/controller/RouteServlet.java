@@ -20,6 +20,6 @@ public class RouteServlet extends HttpServlet {
             req.getRequestDispatcher("/pages/admin.jsp").forward(req, res);
         } else {
             req.getRequestDispatcher("/pages/index.jsp").forward(req,res);
-        } 
+        }
     }
 }

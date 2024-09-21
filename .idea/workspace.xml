@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="/" />
+      <artifact name="QuizApp:war" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,28 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0e2c229-246b-4b15-a98a-2450ca81cd62" name="Changes" comment="">
-<<<<<<< HEAD
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/categories.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/categories.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/signup.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/signup.js" afterDir="false" />
-=======
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/admin.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/pages/template/footer.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/pages/template/header.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/AdminServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/authentication/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/authentication/LoginServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/admin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" afterDir="false" />
->>>>>>> feature/admin
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/categories.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/categories.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/admin.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,8 +30,8 @@
       <list>
         <option value="HTML File" />
         <option value="JavaScript File" />
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -81,7 +68,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Tomcat Server.quizapp.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "ziqiL",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/ziqi/Documents/BcitStudy/Term3/Client-Server/Assignment1/project/comp3940-assignment-1",
     "node.js.detected.package.eslint": "true",
@@ -89,8 +76,6 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
@@ -108,20 +93,21 @@
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/categories" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="openRunningConfigInTab" value="true" />
+  </component>
   <component name="RunManager">
-    <configuration name="quizapp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.29" ALTERNATIVE_JRE_ENABLED="false" show_console_on_std_err="true" show_console_on_std_out="true">
+    <configuration name="Tomcat" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.29" ALTERNATIVE_JRE_ENABLED="false">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="/">
+        <artifact name="QuizApp:war">
           <settings>
             <option name="CONTEXT_PATH" value="" />
           </settings>
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="e1c78858-2b52-4bb9-b483-ce13690032d9" />
-        <option name="HTTP_PORT" value="8081" />
-        <option name="JNDI_PORT" value="2099" />
+        <option name="BASE_DIRECTORY_NAME" value="c88c6c40-b918-4ba8-8271-7be9c4d6bba6" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -129,7 +115,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="60755" />
+        <option name="DEBUG_PORT" value="49513" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -194,8 +180,7 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="QuizApp:war exploded" />
-          <artifact name="/" />
+          <artifact name="QuizApp:war" />
         </option>
       </method>
     </configuration>
