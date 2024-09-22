@@ -27,13 +27,18 @@ public class DatabaseConnection {
         } catch (Exception e) {}
     }
 
-    public static void execute( Connection con, String sql, List<String> params) throws SQLException {
+    public static void execute(String sql, List<Object> params) throws SQLException {
+        Connection con = null;
         PreparedStatement pstmt = null;
         try {
+            con = DatabaseConnection.initializeDatabase();
             pstmt = con.prepareStatement(sql);
             if(params != null) {
                 for(int i=0; i<params.size(); i++) {
-                    pstmt.setString(i+1, params.get(i));
+                    Object param = params.get(i);
+                    if(param instanceof String) pstmt.setString(i+1, (String)param);
+                    if(param instanceof Integer) pstmt.setInt(i+1, (Integer)param);
+                    if(param instanceof Boolean) pstmt.setBoolean(i+1, (Boolean)param);
                 }
             }
             if(pstmt.executeUpdate() == 0) {
@@ -43,6 +48,7 @@ public class DatabaseConnection {
             throw e;
         } finally {
             try { pstmt.close(); } catch (Exception e) {}
+            try { con.close(); } catch (Exception e) {}
         }
     }
 
@@ -120,4 +126,46 @@ public class DatabaseConnection {
             try { con.close(); } catch (Exception e) {}
         }
     }
+
+    public static Map<String, String> executeWithReturn(String sql, List<Object> params, List<String> ret) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try{
+            con = DatabaseConnection.initializeDatabase();
+            pstmt = con.prepareStatement(sql);
+
+            if(params != null){
+                for(int i=0; i<params.size(); i++){
+                    Object param = params.get(i);
+                    if(param instanceof String) pstmt.setString(i+1, (String)param);
+                    else if(param instanceof Integer) pstmt.setInt(i+1, (Integer)param);
+                    else if(param instanceof Boolean) pstmt.setBoolean(i+1, (Boolean)param);
+                    else if(param == null) pstmt.setObject(i+1, null);
+                }
+            }
+            rs = pstmt.executeQuery();
+            Map<String, String> result = new HashMap<>();
+            if(rs.next()){
+                if(ret != null){
+                    for(String key : ret){
+                        result.put(key, rs.getString(key));
+                    }
+                }
+            }
+
+            System.out.println("inserting complete, returning result");
+            return result;
+
+
+        }catch (SQLException e){
+            throw e;
+        }finally {
+            try { rs.close(); } catch (Exception e) {}
+            try { pstmt.close(); } catch (Exception e) {}
+            try { con.close(); } catch (Exception e) {}
+        }
+    }
+
 }

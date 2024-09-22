@@ -14,13 +14,14 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res){
 
+        System.out.println("doGet of /admin is called");
         String sql = "SELECT * FROM quizzes";
         try{
             List<Map<String, String>> quizzes = DatabaseConnection.query(sql, null);
             req.setAttribute("quizList", quizzes);
             req.getRequestDispatcher("/pages/admin.jsp").forward(req,res);
         }catch(Exception e){
-
+            System.out.println(e.getStackTrace());
         }
     }
 
