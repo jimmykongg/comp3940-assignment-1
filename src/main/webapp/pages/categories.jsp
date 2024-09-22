@@ -10,10 +10,12 @@
 <body>
 <div>
 
+    <jsp:include page="./template/header.jsp"/>
     <%
         List<Map<String, String>> categories = (List<Map<String, String>>) request.getAttribute("categories");
         for (Map<String, String> category : categories) {
     %>
+
     <div>
         <a href="/play?category=<%= category.get("id") %>"><%= category.get("name") %> (Regular)</a>
         &nbsp&nbsp&nbsp&nbsp&nbsp
