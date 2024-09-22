@@ -30,7 +30,6 @@ public class PlayQuizzes extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        System.out.println("doGet of play Servlet is called");
         HttpSession session = req.getSession();
         // Get the previous quiz Index from session.
         // I create a session in Categories.java, just a dummy session
@@ -53,10 +52,8 @@ public class PlayQuizzes extends HttpServlet {
             // note it store the key value pair in String, String format, sometime need casting
             Map<String, String> quiz = DatabaseConnection.queryOne(quizSql, quizParams);
             if(quiz.isEmpty()){
-                System.out.println("no quiz is found");
                 res.sendRedirect("/categories");
             }else{
-                System.out.println("find a quiz");
                 // Get the current quiz's index to query for answers for this quiz.
                 Integer curQuizIndex = Integer.parseInt(quiz.get("id"));
                 ansParams.add(curQuizIndex);
@@ -96,10 +93,8 @@ public class PlayQuizzes extends HttpServlet {
             Map<String, String> retInString = DatabaseConnection.queryOne(sql, params);
             // the right answer is selected
             if(retInString.get("right_answer").equals("t")){
-                System.out.println("Selected the right answer, change the quizIndex to" + curQuizIndex);
                 session.setAttribute("quizIndex", curQuizIndex);
             }
-            System.out.println("redirecting to url: " + redirectUrl);
             res.sendRedirect(redirectUrl);
         }catch(SQLException e){
             req.setAttribute("message", e.getMessage());

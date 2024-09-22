@@ -10,15 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0e2c229-246b-4b15-a98a-2450ca81cd62" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/pages/template/footer.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/pages/template/header.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/CreateQuiz.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/pages/createQuiz.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/createQuiz.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/AdminServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/controller/RouteServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/DeleteQuiz.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/EditQuiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/EditQuiz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/database/DatabaseConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/admin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/categories.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/categories.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/admin.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,9 +30,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
-        <option value="Jsp File" />
         <option value="Class" />
+        <option value="Jsp File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -68,7 +69,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Tomcat Server.quizapp.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "ziqiL",
+    "git-widget-placeholder": "ZiqiL__CreatingQuiz",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/ziqi/Documents/BcitStudy/Term3/Client-Server/Assignment1/project/comp3940-assignment-1",
     "node.js.detected.package.eslint": "true",
@@ -212,5 +213,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/webapp/pages/categories.jsp</url>
+          <line>16</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

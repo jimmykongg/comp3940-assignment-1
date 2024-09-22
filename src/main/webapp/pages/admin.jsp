@@ -13,19 +13,23 @@ contentType="text/html;charset=UTF-8" language="java" %>
   </head>
 
   <body>
+  <a href="/createQuiz">Create a Quiz</a>
+
 <% ArrayList<Map<Integer, String>> quizzes = (ArrayList<Map<Integer, String>>) request.getAttribute("quizList");
   for(Map<Integer, String> quiz : quizzes){
     String quizId = quiz.get("id");
+
     String quizDescription = quiz.get("description");
 %>
   <div>
     <p>ID: <%= quizId%> Quiz: <%=quizDescription%></p>
-    <form action="editQuiz" method="post" style="display: inline">
+    <form action="/editQuiz" method="post" style="display: inline">
       <input type="hidden" name="quizId" value="<%=quizId%>">
       <button type="submit">Edit</button>
     </form>
 
-    <form action="deleteQuiz" method="post" style="display:inline;">
+
+    <form action="/deleteQuiz" method="post" style="display:inline;">
       <input type="hidden" name="quizId" value="<%= quizId %>" />
       <button type="submit">Delete</button>
     </form>
