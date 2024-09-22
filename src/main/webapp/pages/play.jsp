@@ -23,7 +23,7 @@
     // Integer mediaID = Integer.parseInt(quiz.get("media_id"));
 
 %>
-    <div id="mediaDisplay">Media Section</div>
+    <div id="mediaDisplay"></div>
 
     <p><%= quiz.get("description") %></p>
     <p>In variable: <%= curQuizIndex %>, In session: <%= session.getAttribute("quizIndex") %></p>
@@ -57,11 +57,11 @@
               let mediaHTML = '';
 
               if (mediaType === 'image') {
-                  mediaHTML = `<img src="/webapp/images/${filePath}" alt="Quiz Image" style="max-width: 600px;">`;
+                  mediaHTML = `<img src="/images/${filePath}" alt="Quiz Image" style="max-width: 600px;">`;
               } else if (mediaType === 'video') {
-                  mediaHTML = `<iframe width="600" height="400" src="https://www.youtube.com/embed/" + ${filePath}" allow="encrypted-media"></iframe>`;
+                  mediaHTML = `<iframe width="600" height="400" src="https://www.youtube.com/embed/${filePath}?autoplay=1&mute=1" allow="autoplay; encrypted-media"></iframe>`;
               } else if (mediaType === 'audio') {
-                  mediaHTML = `<iframe width="600" height="400" src="https://www.youtube.com/embed/" +"${filePath}"></iframe>`;
+                  mediaHTML = `<iframe width="600" height="400" src="https://www.youtube.com/embed/${filePath}?autoplay=1&mute=1" allow="autoplay; encrypted-media></iframe>`;
               }
 
               document.getElementById('mediaDisplay').innerHTML = mediaHTML;

@@ -16,6 +16,7 @@
       </element>
       <element id="javaee-facet-resources" facet="WebApp/web/Web" />
       <element id="javaee-facet-resources" facet="QuizApp/web/Web" />
+      <element id="dir-copy" path="$PROJECT_DIR$/target/QuizApp/images" />
     </root>
   </artifact>
 </component>
