@@ -60,7 +60,7 @@
         };
     </script>
 </head>
-<body>r
+<body>
 <div id="mediaDisplay"></div>
 
 <%-- Code for testing --%>
