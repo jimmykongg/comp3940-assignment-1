@@ -13,7 +13,7 @@
 </head>
 <body>
 <% List<Map<String, String>> categories = (List<Map<String, String>>) request.getAttribute("categories");%>
-<form action="/createQuiz" method="post">
+<form action="/createQuiz" method="post" enctype="multipart/form-data">
     <!-- Ask user for the description of question-->
     <label for="description">Description: </label>
     <input type="text" id="description" name="description" required>
@@ -69,6 +69,9 @@
     <input type="text" id="mediaType" name="mediaType">
     <label for="mediaPath">Media Path:</label>
     <input type="text" id="mediaPath" name="mediaPath">
+
+    <label for="mediaFile">Upload Media:</label>
+    <input type="file" id="mediaFile" name="mediaFile"><br/>
 
     <br/>
     <button type="submit">Create Quiz</button>

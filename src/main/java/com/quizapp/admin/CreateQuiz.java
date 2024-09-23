@@ -2,17 +2,21 @@ package com.quizapp.admin;
 
 import com.quizapp.database.DatabaseConnection;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @WebServlet("/createQuiz")
+@MultipartConfig
 public class CreateQuiz extends HttpServlet {
 
     @Override
@@ -39,6 +43,14 @@ public class CreateQuiz extends HttpServlet {
         String mediaPath = req.getParameter("mediaPath");
         Integer mediaId = null;
         Integer quizID = null;
+
+        Part filePart = req.getPart("mediaFile");
+        if (filePart != null && filePart.getSize() > 0) {
+            String uploadDir = System.getProperty("catalina.home") + "/webapps/ROOT/images/";
+
+            String filePath = uploadDir + mediaPath;
+            filePart.write(filePath);
+        }
 
         if(category.equals("newCategory")){
             sql = "INSERT INTO category (name) VALUES(?) RETURNING id, name";
