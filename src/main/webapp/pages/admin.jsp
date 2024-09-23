@@ -23,7 +23,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
 %>
   <div>
     <p>ID: <%= quizId%> Quiz: <%=quizDescription%></p>
-    <form action="/editQuiz" method="post" style="display: inline">
+    <form action="/editQuiz" method="get" style="display: inline">
       <input type="hidden" name="quizId" value="<%=quizId%>">
       <button type="submit">Edit</button>
     </form>

@@ -39,6 +39,7 @@ public class DatabaseConnection {
                     if(param instanceof String) pstmt.setString(i+1, (String)param);
                     if(param instanceof Integer) pstmt.setInt(i+1, (Integer)param);
                     if(param instanceof Boolean) pstmt.setBoolean(i+1, (Boolean)param);
+                    if(param == null) pstmt.setObject(i+1, null);
                 }
             }
             if(pstmt.executeUpdate() == 0) {
