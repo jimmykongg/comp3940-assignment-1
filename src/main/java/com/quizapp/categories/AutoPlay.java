@@ -20,15 +20,19 @@ public class AutoPlay extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+        System.out.println("doGet /auto is called");
         HttpSession session = req.getSession();
         Integer preQuizIndex = (Integer) session.getAttribute("quizIndex");
+        System.out.println("preQuizIndex: " + preQuizIndex);
         Integer categoryId = Integer.parseInt(req.getParameter("category"));
+        System.out.println("categoryId: " + categoryId);
 
         String quizSql = "SELECT id, description, media_id FROM quizzes WHERE category_id = ? AND id > ? LIMIT 1";
-        String ansSql = "SELECT id, description FROM answers WHERE quiz_id = ?";
+        String ansSql = "SELECT id, description, right_answer FROM answers WHERE quiz_id = ?";
+
         List<Object> quizParams = new ArrayList<>();
         List<Object> ansParams = new ArrayList<>();
+
         quizParams.add(categoryId);
         quizParams.add(preQuizIndex);
 
@@ -39,6 +43,7 @@ public class AutoPlay extends HttpServlet {
             }else{
                 // Get the current quiz's index to query for answers for this quiz.
                 Integer curQuizIndex = Integer.parseInt(quiz.get("id"));
+                System.out.println("current quiz ID after query: " + curQuizIndex);
                 ansParams.add(curQuizIndex);
                 List<Map<String, String>> answers = DatabaseConnection.query(ansSql, ansParams);
                 if(answers.isEmpty()){
