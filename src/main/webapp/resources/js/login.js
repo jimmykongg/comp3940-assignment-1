@@ -21,5 +21,12 @@ async function handleSubmit() {
   });
 }
 
+function handleRedirect() {
+  const signupButton = document.getElementById("signup");
+
+  signupButton.addEventListener("click", () => window.location.href = "/signup")
+}
+
 handleSubmit();
+handleRedirect();
 

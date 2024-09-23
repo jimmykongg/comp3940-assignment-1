@@ -12,7 +12,8 @@ contentType="text/html;charset=UTF-8" language="java" %>
 
   <body>
     <div class="wrapper">
-    <h2>Login Form</h2>
+    <h2>Login</h2>
+
     <form id="loginForm">
       <div>
         <label for="username">Username:</label>
@@ -28,6 +29,10 @@ contentType="text/html;charset=UTF-8" language="java" %>
         <button type="submit">Login</button>
       </div>
     </form>
+
+      <div>
+        <button id="signup">Signup</button>
+      </div>
     </div>
     <script src="/resources/js/login.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

@@ -6,27 +6,31 @@ contentType="text/html;charset=UTF-8" language="java" %>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/resources/css/signup.css" rel="stylesheet" />
     <title>QuizApp - Signup</title>
   </head>
 
   <body>
-    <h2>Signup Form</h2>
+    <div class="wrapper">
+      <h2>Signup</h2>
 
-    <form id="signupForm">
-      <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required />
-      </div>
+      <form id="signupForm">
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
+        </div>
 
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required />
-      </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
 
-      <div>
-        <button type="submit">Sign Up</button>
-      </div>
-    </form>
+        <div>
+          <button type="submit">Sign Up</button>
+        </div>
+      </form>
+    </div>
+
     <script type="module" src="/resources/js/signup.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </body>
