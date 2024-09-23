@@ -20,15 +20,19 @@ public class AutoPlay extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
-        HttpSession session = req.getSession();
+        System.out.println("doGet /auto is called");
+        HttpSession session = req.getSession(false);
         Integer preQuizIndex = (Integer) session.getAttribute("quizIndex");
+        System.out.println("preQuizIndex: " + preQuizIndex);
         Integer categoryId = Integer.parseInt(req.getParameter("category"));
+        System.out.println("categoryId: " + categoryId);
 
         String quizSql = "SELECT id, description, media_id FROM quizzes WHERE category_id = ? AND id > ? LIMIT 1";
-        String ansSql = "SELECT id, description FROM answers WHERE quiz_id = ?";
+        String ansSql = "SELECT id, description, right_answer FROM answers WHERE quiz_id = ?";
+
         List<Object> quizParams = new ArrayList<>();
         List<Object> ansParams = new ArrayList<>();
+
         quizParams.add(categoryId);
         quizParams.add(preQuizIndex);
 
@@ -39,6 +43,7 @@ public class AutoPlay extends HttpServlet {
             }else{
                 // Get the current quiz's index to query for answers for this quiz.
                 Integer curQuizIndex = Integer.parseInt(quiz.get("id"));
+                System.out.println("current quiz ID after query: " + curQuizIndex);
                 ansParams.add(curQuizIndex);
                 List<Map<String, String>> answers = DatabaseConnection.query(ansSql, ansParams);
                 if(answers.isEmpty()){
@@ -62,36 +67,13 @@ public class AutoPlay extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+        System.out.println("doPost of /auto is called");
         Integer curQuizIndex = Integer.parseInt(req.getParameter("curQuizIndex"));
         System.out.println("curQuizIndex: " + curQuizIndex);
         String category = req.getParameter("category");
-        String sql = "SELECT right_answer FROM answers WHERE id = ?";
-        String redirectUrl = "/autoplay?category=" + category;
-        List<Object> params = new ArrayList<>();
-
-        try{
-            Map<String, String> retInString = DatabaseConnection.queryOne(sql, params);
-            String correct = retInString.get("right_answer");
-
-            req.setAttribute("correctAnswer", correct);
-            req.setAttribute("quizIndex", curQuizIndex);
-            req.setAttribute("category", category);
-
-            // Display correct answer
-            req.getRequestDispatcher("/pages/autoplay.jsp").forward(req, res);
-        }catch(SQLException e){
-            req.setAttribute("message", e.getMessage());
-            req.getRequestDispatcher("/pages/error.jsp").forward(req, res);
-        }
+        String url = "/autoplay?category=" + category;
+        HttpSession session = req.getSession(false);
+        session.setAttribute("quizIndex", curQuizIndex);
+        res.sendRedirect(url);
     }
-// using Ziqi's methods instead :D
-//    private String getCorrectAnswer(List<Map<String, String>> answers) {
-//        for (Map<String, String> answer : answers) {
-//            if("t".equals(answer.get("right_answer"))){
-//                return answer.get("right_answer");
-//            }
-//        }
-//        return null;
-//    }
 }
