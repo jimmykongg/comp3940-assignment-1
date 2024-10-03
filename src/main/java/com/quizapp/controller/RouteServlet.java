@@ -12,14 +12,14 @@ public class RouteServlet extends HttpServlet {
         String url = req.getRequestURI();
 
         HttpSession session = req.getSession(false);
-        if (url.equals("/login")) {
+        if(url.equals("/")){
+            req.getRequestDispatcher("/pages/index.jsp").forward(req, res);
+        } else if (url.equals("/login")) {
             req.getRequestDispatcher("/pages/login.jsp").forward(req, res);
         } else if (url.equals("/signup")) {
             req.getRequestDispatcher("/pages/signup.jsp").forward(req, res);
         } else if (url.equals("/admin")) {
             req.getRequestDispatcher("/pages/admin.jsp").forward(req, res);
-        } else {
-            req.getRequestDispatcher("/pages/index.jsp").forward(req,res);
         }
     }
 }

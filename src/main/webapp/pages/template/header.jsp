@@ -7,4 +7,5 @@
 --%>
 <div>
     <a href="/admin">Profile</a>
+    <a href="/lobby">QuizRoom</a>
 </div>
