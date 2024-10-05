@@ -17,7 +17,7 @@ import java.util.Map;
 public class EditQuiz extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         Integer quizId = Integer.parseInt(req.getParameter("quizId")) ;
 
@@ -51,7 +51,7 @@ public class EditQuiz extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         System.out.println("doPost of /editQuiz is called");
         Integer quizId = Integer.parseInt(req.getParameter("quizId"));

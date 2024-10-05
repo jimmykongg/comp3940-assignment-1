@@ -11,7 +11,7 @@ import com.quizapp.database.DatabaseConnection;
 
 @WebServlet("/api/login")
 public class LoginServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         res.setContentType("application/json");
 
         String username = req.getParameter("username");

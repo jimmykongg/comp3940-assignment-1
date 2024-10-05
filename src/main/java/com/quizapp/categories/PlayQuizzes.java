@@ -28,7 +28,7 @@ public class PlayQuizzes extends HttpServlet {
     // from quizzes table: id, description, media_id
     // from answers table: id, description, right_answer
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
         // Get the previous quiz Index from session.
@@ -78,7 +78,7 @@ public class PlayQuizzes extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
         Integer curQuizIndex = Integer.parseInt(req.getParameter("curQuizIndex"));

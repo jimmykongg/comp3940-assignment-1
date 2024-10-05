@@ -20,7 +20,7 @@ import java.util.Map;
 public class CreateQuiz extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res){
+    public void doGet(HttpServletRequest req, HttpServletResponse res){
 
         String sql = "SELECT * FROM category";
         try{
