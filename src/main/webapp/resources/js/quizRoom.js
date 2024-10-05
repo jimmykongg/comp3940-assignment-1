@@ -9,9 +9,13 @@ async function getJWTToken() {
 
 async function setUpWekSocket() {
     const token = JSON.stringify(await getJWTToken())
-    let encodedToken = encodeURIComponent(token)
+    const encodedToken = encodeURIComponent(token)
+    const params = new URLSearchParams(window.location.search)
+    const categoryID = params.get('categoryID');
+    const roomID = params.get('roomID');
 
-    let ws = new WebSocket("ws://localhost:8083//WebApp_war/quizRoomSocket?token=" + encodedToken);
+    let ws = new WebSocket(`ws://localhost:8083//WebApp_war/quizRoomSocket?token=${encodedToken}
+    &categoryID=${categoryID}&roomID=${roomID}`);
 
     ws.onopen = function(event) {
         console.log("Connected to WebSocket Server");
