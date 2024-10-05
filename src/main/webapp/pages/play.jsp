@@ -21,7 +21,6 @@
     // I have to comment them out because they are all null
     // And it will break the code if I try to make them an integer.
     // Integer mediaID = Integer.parseInt(quiz.get("media_id"));
-
 %>
     <div id="mediaDisplay"></div>
 

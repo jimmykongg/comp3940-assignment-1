@@ -1,6 +1,7 @@
 package com.quizapp.categories;
 
 import com.quizapp.database.DatabaseConnection;
+import com.quizapp.quizroom.JwtUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +22,16 @@ public class Categories extends HttpServlet {
 
         HttpSession session = req.getSession(false);
         System.out.println(session);
+
+
         if(session == null) req.getRequestDispatcher("/pages/index.js").forward(req, res);
-        else session.setAttribute("quizIndex", 0);
+        else {
+            session.setAttribute("quizIndex", 0);
+
+            System.out.println("quizIndex set to " + session.getAttribute("quizIndex"));
+            System.out.println("username: " + session.getAttribute("username"));
+            System.out.println("role: " + session.getAttribute("username"));
+        }
 
         String sql = "SELECT * FROM category";
         try {

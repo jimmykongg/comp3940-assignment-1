@@ -46,8 +46,7 @@ public class PlayQuizzes extends HttpServlet {
         quizParams.add(categoryId);
         quizParams.add(preQuizIndex);
 
-
-        try{
+        try {
             // a general querying function, used when you are sure only one record(row) will be return.
             // note it store the key value pair in String, String format, sometime need casting
             Map<String, String> quiz = DatabaseConnection.queryOne(quizSql, quizParams);
@@ -71,7 +70,7 @@ public class PlayQuizzes extends HttpServlet {
                     req.getRequestDispatcher("/pages/play.jsp").forward(req, res);
                 }
             }
-        }catch(SQLException e){
+        } catch(SQLException e){
             req.setAttribute("message", e.getMessage());
             req.getRequestDispatcher("/pages/error.jsp").forward(req, res);
         }
