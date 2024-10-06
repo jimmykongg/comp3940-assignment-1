@@ -7,7 +7,7 @@ import java.io.*;
 
 @WebServlet("/")
 public class RouteServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         System.out.println("route handler is called");
         String url = req.getRequestURI();
 

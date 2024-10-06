@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
         out.flush();
     }
 
-    private String authenticateUser(String username, String password) {
+    public String authenticateUser(String username, String password) {
         String query = "SELECT password, role FROM app_user WHERE username = ?";
 
         try {
