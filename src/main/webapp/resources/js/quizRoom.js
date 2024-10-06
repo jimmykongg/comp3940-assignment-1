@@ -48,7 +48,7 @@ function loadContents(data) {
             loadQuestion(data.description)
             break;
         case "answers":
-            console.log(data);
+            loadAnswers(data.answers, data.username, data.role)
             break;
         case "redirect":
             window.location.href = data.redirectURL;
@@ -97,3 +97,28 @@ function handleGetNextQuestion() {
     button.addEventListener('click', getNextQuestion)
 }
 handleGetNextQuestion()
+
+function loadAnswers(answers, username, role) {
+    const answerWrapper = document.querySelector(".answersWrapper")
+    answerWrapper.innerHTML = ""
+
+    answers.forEach((answer) => {
+        answerWrapper.insertAdjacentHTML("beforeend", `
+            <div>
+                <button class="answerBtn" value=${answer.id}>${answer.description}</button>
+            </div>
+    `)
+    })
+
+    handleSubmitAnswer(username, role)
+}
+
+function handleSubmitAnswer(username, role) {
+    document.querySelectorAll(".answerBtn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const answer = {type: "submitAnswer", answerID: btn.value, username: username, role: role}
+
+            ws.send(JSON.stringify(answer))
+        })
+    })
+}

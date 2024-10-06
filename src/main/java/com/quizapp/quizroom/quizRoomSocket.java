@@ -74,6 +74,12 @@ public class quizRoomSocket {
             case "getNextQuestion":
                 sendQuestionToAdmin(session);
                 break;
+            case "submitAnswer":
+                String answerID = jsonObject.get("answerID").getAsString();
+                String username = jsonObject.get("username").getAsString();
+                System.out.println(answerID);
+                System.out.println(username);
+                break;
             default:
                 logger.error("Unrecognized message type: " + type);
         }
@@ -221,6 +227,8 @@ public class quizRoomSocket {
         List<Map<String, String>> answers = getQuizAnswers();
 
         answersData.put("type", "answers");
+        answersData.put("username", getUsername());
+        answersData.put("role", getRole());
         answersData.put("answers", answers);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
