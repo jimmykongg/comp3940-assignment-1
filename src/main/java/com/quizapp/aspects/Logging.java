@@ -14,17 +14,41 @@ import org.slf4j.LoggerFactory;
 public class Logging {
     private static final Logger logger = LoggerFactory.getLogger(Logging.class);
 
-        @Before("execution(public void com.quizapp.authentication.LoginServlet.doPost(..))")
-    public void beforeDoPostCall(JoinPoint joinPoint) {
-        logger.info("Aspect: About to call doPost for login");
-        System.out.println("Aspect: About to call doPost for login");
+//        @Before("execution(public void com.quizapp.authentication.LoginServlet.doPost(..))")
+//    public void beforeDoPostCall(JoinPoint joinPoint) {
+//        logger.info("Aspect: About to call doPost for login");
+//        System.out.println("Aspect: About to call doPost for login");
+//    }
+//
+//    @After("execution(public void com.quizapp.authentication.LoginServlet.doPost(..))")
+//    public void afterDoPostCall(JoinPoint joinPoint) {
+//        logger.info("Aspect: doPost completed for login");
+//        System.out.println("Aspect: doPost completed for login");
+//    }
+
+
+    @Before("execution(public void *.doPost(..))")
+    public void beforeAllDoPostCall(JoinPoint joinPoint) {
+        logger.info("Aspect: About to call general do Post");
+        System.out.println("Aspect: About to call general doPost");
     }
 
-    @After("execution(public void" +
-            " com.quizapp.authentication.LoginServlet.doPost(..))")
-    public void afterDoPostCall(JoinPoint joinPoint) {
-        logger.info("Aspect: doPost completed for login");
-        System.out.println("Aspect: doPost completed for login");
+    @After("execution(public void *.doPost(..))")
+    public void afterAllDoPostCall(JoinPoint joinPoint) {
+        logger.info("Aspect: general doPost completed");
+        System.out.println("Aspect: general doPost completed");
+    }
+
+    @Before("execution(public void *.doGet(..))")
+    public void beforeAllDoGetCall(JoinPoint joinPoint) {
+        logger.info("Aspect: About to call general doGet");
+        System.out.println("Aspect: About to call general doGet");
+    }
+
+    @After("execution(public void *.doGet(..))")
+    public void afterAllDoGetCall(JoinPoint joinPoint) {
+        logger.info("Aspect: general doGet completed");
+        System.out.println("Aspect: general doGet completed");
     }
 
 //    @Before("execution(public * com.quizapp.controller.RouteServlet(..))")

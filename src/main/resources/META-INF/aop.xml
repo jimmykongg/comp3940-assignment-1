@@ -1,7 +1,10 @@
 <aspectj>
     <weaver options="-verbose -showWeaveInfo -debug  -Xlint:ignore">
-        <include within="java.*"/>
-        <include within="java.com.quizapp.authentication.LoginServlet   "/>
-    </weaver>
-    <aspect name="com.quizapp.aspects.Logging" />
-</aspectj>
+        <include within="src.main.java.com.quizapp.*"/>
+        <include within="src.main.java.com.quizapp.authentication.LoginServlet"/>
+    <include within="com.quizapp..*"/>
+</weaver>
+<aspects>
+<aspect name="com.quizapp.aspects.Logging"/>
+</aspects>
+        </aspectj>
