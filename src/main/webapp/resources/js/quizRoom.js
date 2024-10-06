@@ -1,6 +1,4 @@
-
-
-let ws = new WebSocket("ws://localhost:8080/quizRoomSocket");
+let ws = new WebSocket("ws://localhost:8083//WebApp_war/quizRoomSocket");
 
 ws.onopen = function(event) {
     console.log("Connected to WebSocket Server");
