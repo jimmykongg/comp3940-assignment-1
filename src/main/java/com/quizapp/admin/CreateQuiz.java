@@ -15,24 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/createQuiz")
+@WebServlet("/createQuiz/*")
 @MultipartConfig
 public class CreateQuiz extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res){
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) {
         String sql = "SELECT * FROM category";
-        try{
+        try {
             List<Map<String, String>> categories = DatabaseConnection.query(sql, null);
             req.setAttribute("categories", categories);
             req.getRequestDispatcher("/pages/createQuiz.jsp").forward(req, res);
-
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
+
     }
 
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         String sql = null;
@@ -46,9 +47,11 @@ public class CreateQuiz extends HttpServlet {
 
         Part filePart = req.getPart("mediaFile");
         if (filePart != null && filePart.getSize() > 0) {
-            String uploadDir = System.getProperty("catalina.home") + "/webapps/ROOT/images/";
+            String uploadDir = getServletContext().getRealPath("/") + "images/";
 
-            String filePath = uploadDir + mediaPath;
+            String fileName = filePart.getSubmittedFileName();
+            String filePath = uploadDir + File.separator + fileName;
+
             filePart.write(filePath);
         }
 
@@ -169,7 +172,8 @@ public class CreateQuiz extends HttpServlet {
             }
         }
 
-        System.out.println("all database operation is completed, redirect to admin page");
-        res.sendRedirect("/admin");
+        res.getWriter().write("{\"status\": \"success\", \"quizId\": " + quizID + "}");
+        res.setStatus(HttpServletResponse.SC_OK);
+
     }
 }

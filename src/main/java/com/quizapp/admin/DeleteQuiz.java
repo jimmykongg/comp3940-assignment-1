@@ -13,33 +13,42 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/deleteQuiz")
+@WebServlet("/deleteQuiz/delete/*")
 public class DeleteQuiz extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        // Get quiz ID from the form
-        System.out.println("Delete Quiz");
-        Integer quizId = Integer.parseInt(req.getParameter("quizId"));
+    protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        String pathInfo = req.getPathInfo();
+        if (pathInfo == null || pathInfo.equals("/")) {
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
 
-        // SQL query to delete the quiz and answers by ID
+        String[] pathParts = pathInfo.split("=");
+        if (pathParts.length < 2) {
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        int quizId;
+        try {
+            quizId = Integer.parseInt(pathParts[1]);
+        } catch (NumberFormatException e) {
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
 
         String answerSql = "DELETE FROM answers WHERE quiz_id = ?";
         String sql = "DELETE FROM quizzes WHERE id = ?";
 
         try {
-            // Initialize the database connection
-            // Prepare parameters for the query
             List<Object> params = new ArrayList<>();
             params.add(quizId);
             DatabaseConnection.execute(answerSql, params);
-            // Execute the delete query using DatabaseConnection's execute method
             DatabaseConnection.execute(sql, params);
-            res.sendRedirect("/admin");
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (SQLException e) {
-            // Handle SQL exceptions and forward to error page with the error message
-            req.setAttribute("message", e.getMessage());
-            req.getRequestDispatcher("/pages/error.jsp").forward(req, res);
+            res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

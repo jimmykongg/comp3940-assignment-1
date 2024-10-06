@@ -6,9 +6,9 @@ contentType="text/html;charset=UTF-8" language="java" %>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="/resources/css/admin.css" rel="stylesheet" />
     <script src="/resources/js/admin.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>QuizApp - Admin</title>
   </head>
 
@@ -28,15 +28,27 @@ contentType="text/html;charset=UTF-8" language="java" %>
       <button type="submit">Edit</button>
     </form>
 
-
-    <form action="/deleteQuiz" method="post" style="display:inline;">
-      <input type="hidden" name="quizId" value="<%= quizId %>" />
-      <button type="submit">Delete</button>
-    </form>
+    <button type="button" onclick="deleteQuiz('<%= quizId %>')">Delete</button>
 
   </div>
  <% }
 %>
+  <script>
+    function deleteQuiz(quizId) {
+      if (confirm('Are you sure you want to delete this quiz?')) {
+        axios.delete(`/deleteQuiz/delete/id=${quizId}`)
+                .then(function (response) {
+                  if (response.status === 200) {
+                    alert('Quiz deleted successfully');
+                    window.location.reload();
+                  }
+                })
+                .catch(function (error) {
+                  alert('Error deleting quiz: ' + error.response.data.message);
+                });
+      }
+    }
+  </script>
 
   </body>
 </html>

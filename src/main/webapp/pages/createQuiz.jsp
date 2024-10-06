@@ -10,10 +10,12 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <% List<Map<String, String>> categories = (List<Map<String, String>>) request.getAttribute("categories");%>
-<form action="/createQuiz" method="post" enctype="multipart/form-data">
+
+<div id="quizForm">
     <!-- Ask user for the description of question-->
     <label for="description">Description: </label>
     <input type="text" id="description" name="description" required>
@@ -74,9 +76,50 @@
     <input type="file" id="mediaFile" name="mediaFile"><br/>
 
     <br/>
-    <button type="submit">Create Quiz</button>
-</form>
+    <button id="createQuizBtn">Create Quiz</button>
+</div>
 
+<script>
+    document.getElementById('createQuizBtn').addEventListener('click', function() {
+        let formData = new FormData();
+        formData.append('description', document.getElementById('description').value);
+        formData.append('quizType', document.getElementById('quizType').value);
+        formData.append('category', document.getElementById('category').value);
+        formData.append('mediaFile', document.getElementById('mediaFile').files[0]);
+        formData.append('mediaType', document.getElementById('mediaType').value);
+        formData.append('mediaPath', document.getElementById('mediaPath').value);
+
+        if (document.getElementById('category').value === "newCategory") {
+            formData.append('newCategoryName', document.getElementById('newCategoryName').value);
+        }
+
+        if (document.getElementById('quizType').value === "multi") {
+            formData.append('correctAnswer', document.getElementById('correctAnswer').value);
+            formData.append('falseAnswer1', document.getElementById('falseAnswer1').value);
+            formData.append('falseAnswer2', document.getElementById('falseAnswer2').value);
+            formData.append('falseAnswer3', document.getElementById('falseAnswer3').value);
+        } else {
+            formData.append('trueFalseAnswer', document.getElementById('trueFalseAnswer').value);
+        }
+
+        axios.post('/createQuiz/create', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(function (response) {
+                console.log(response)
+                if (response.data.status === 'success') {
+                    alert('Quiz created successfully!');
+                    window.location.href = "/admin";
+                }
+            })
+            .catch(function (error) {
+                alert('Error creating quiz: ' + error.response.data.message);
+            });
+    });
+
+</script>
 
 <script src="/resources/js/createQuiz.js"></script>
 </body>
