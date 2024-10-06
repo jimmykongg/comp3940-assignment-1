@@ -13,9 +13,7 @@ public class RoomManager {
         return roomMap.containsKey(roomID);
     }
 
-    public static void addRoom(String roomID, Room newRoom){
-        roomMap.put(roomID, newRoom);
-    }
+    public static void addRoom(String roomID, Room newRoom) { roomMap.put(roomID, newRoom); }
 
-
+    public static Map<String, Room> getRoomMap() { return roomMap; }
 }

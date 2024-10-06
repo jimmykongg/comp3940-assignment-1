@@ -1,7 +1,5 @@
 package com.quizapp.quizroom;
 
-import java.util.Set;
-
 public class Room {
 
     private String roomID;
@@ -10,5 +8,13 @@ public class Room {
     public Room(String categoryID, String roomID){
         this.roomID = roomID;
         this.categoryID = categoryID;
+    }
+
+    public String getRoomID() {
+        return roomID;
+    }
+
+    public String getCategoryID() {
+        return categoryID;
     }
 }

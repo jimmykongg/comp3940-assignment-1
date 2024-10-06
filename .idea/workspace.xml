@@ -11,11 +11,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0e2c229-246b-4b15-a98a-2450ca81cd62" name="Changes" comment="Fixed image source pathing.">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/quizRoom.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/JoinQuizRoomServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/pages/joinRoom.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/CreateRoomServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/CreateRoomServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/RoomManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/RoomManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/quizRoomSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/quizRoomSocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/quizRoom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/quizRoom.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/quizRoom.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/quizRoom.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/quizRoom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/quizRoom.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,9 +30,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Jsp File" />
         <option value="JavaScript File" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>

@@ -19,10 +19,22 @@
 .questionWrapper {
     display: flex;
     justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
 }
 
 .chatRoomWrapper {
     grid-area: chatRoom;
     display: grid;
     place-content: center;
+    visibility: hidden;
+}
+
+#nextQuestion {
+    display: none;
+}
+
+.answersWrapper {
+    display: flex;
+    justify-content: center;
 }

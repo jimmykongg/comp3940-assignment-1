@@ -24,10 +24,17 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class quizRoomSocket {
     private static final Log logger = LogFactory.getLog(quizRoomSocket.class);
     private static final Set<quizRoomSocket> connections = new CopyOnWriteArraySet<>();
+    // questionIndex would be updated whenever questions are fetched
     private static int questionIndex = 0;
     private static int categoryID = -1;
 
     private Session session;
+    /*
+     * The queue of messages that may build up while another message is being sent. The thread that sends a message is
+     * responsible for clearing any queue that builds up while that message is being sent.
+     */
+//    private Queue<String> messageBacklog = new ArrayDeque<>();
+//    private boolean messageInProgress = false;
 
     @OnOpen
     public void onOpen(Session session) {
@@ -53,6 +60,8 @@ public class quizRoomSocket {
 
         if (getRole().equalsIgnoreCase("admin")) {
             sendQuestionToAdmin(session);
+        } else if (getRole().equalsIgnoreCase("general")) {
+            sendAnswersToGeneral();
         }
     }
 
@@ -68,12 +77,15 @@ public class quizRoomSocket {
             default:
                 logger.error("Unrecognized message type: " + type);
         }
-        session.getBasicRemote().sendText(message);
+
+        if (session.isOpen()) {
+            session.getBasicRemote().sendText(message);
+        }
     }
 
     @OnClose
     public void onClose(){
-        System.out.println("close");
+        System.out.println(getUsername() + " closes connection");
     }
 
     @OnError
@@ -108,6 +120,7 @@ public class quizRoomSocket {
 
         logger.info("Connection is ok");
 
+        // TODO Change it to send to admin
         Map<String, Object> message = new HashMap<>();
         String joinMessage = "[" + getRole().toUpperCase() + "] " + getUsername() + " has joined.";
         message.put("type", "joinRoom");
@@ -166,10 +179,14 @@ public class quizRoomSocket {
 
         Map<String, String> quizData = getQuizData();
 
-        if (quizData != null) {
+        if (quizData != null && !quizData.isEmpty()) {
             quizID = Integer.parseInt(quizData.get("id"));
             description = quizData.get("description");
             mediaID = Integer.parseInt(quizData.get("media_id"));
+        } else {
+            // If there's no quiz questions left, close all client connections
+            closeAllConnections();
+            return;
         }
 
         if (mediaID > -1) {
@@ -198,10 +215,77 @@ public class quizRoomSocket {
         }
     }
 
-    // Method to handle user answer submission
+    // Send JSON answers data (questionID, description) to general clients
+    private void sendAnswersToGeneral() {
+        Map<String, Object> answersData = new HashMap<>();
+        List<Map<String, String>> answers = getQuizAnswers();
+
+        answersData.put("type", "answers");
+        answersData.put("answers", answers);
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonString = gson.toJson(answersData);
+
+        try {
+            session.getBasicRemote().sendText(jsonString);
+        } catch (IOException e) {
+            logger.error("Failed to send JSON answers to general clients: " + e.getMessage(), e);
+        }
+    }
+
+    // Fetch quiz answers from the database
+    private List<Map<String, String>> getQuizAnswers() {
+        String ansSql = "SELECT id, description FROM answers WHERE quiz_id = ?";
+        List<Object> ansParams = new ArrayList<>();
+        ansParams.add(questionIndex);
+        List<Map<String, String>> answers = null;
+        try {
+            answers = DatabaseConnection.query(ansSql, ansParams);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (!answers.isEmpty()) {
+            return answers;
+        } else {
+            logger.error("No answer for this question");
+            return null;
+        }
+    }
+
+    // Send JSON data to particular group(s) of clients(
+    private void broadcast(String jsonString) {
+        for (quizRoomSocket connection : connections) {
+            if (connection.getRole().equalsIgnoreCase("general")) {
+
+            }
+        }
+    }
+
+    // handle user answer submission
     private void handleUserAnswer(String username, String answer) {
         System.out.println("User: " + username + " submitted answer: " + answer);
         // Here you could store the answer in the database or collect it for the admin to review.
+    }
+
+    // handle closing all connections and instruct clients to leave the quiz room by URL redirection
+    private void closeAllConnections() {
+        for (quizRoomSocket client : connections) {
+                String redirectURL = "/categories";
+                Map<String, String> message = new HashMap<>();
+                message.put("type", "redirect");
+                message.put("redirectURL", redirectURL);
+
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                String jsonString = gson.toJson(message);
+
+            try {
+                session.getBasicRemote().sendText(jsonString);
+                client.session.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Quiz ended, redirecting"));
+            } catch (IOException e) {
+                logger.error("Failed to close connection for client: " + e.getMessage(), e);
+            }
+        }
     }
 
     /*
@@ -214,7 +298,6 @@ public class quizRoomSocket {
     private String getRole() {
         return (String) session.getUserProperties().get("role");
     }
-
 
     private void setQuizIndex(int curQuizID) {
         if (getRole().equalsIgnoreCase("admin")) {

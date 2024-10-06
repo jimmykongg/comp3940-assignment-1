@@ -13,7 +13,7 @@ async function setUpWekSocket() {
     const params = new URLSearchParams(window.location.search)
     const categoryID = params.get('categoryID');
     const roomID = params.get('roomID');
-    ws = new WebSocket(`ws://localhost:8083//WebApp_war/quizRoomSocket?token=${encodedToken}
+    ws = new WebSocket(`ws://localhost:8083/WebApp_war/quizRoomSocket?token=${encodedToken}
     &categoryID=${categoryID}&roomID=${roomID}`);
 
     ws.onopen = function(event) {
@@ -47,6 +47,12 @@ function loadContents(data) {
             loadMedia(data.mediaType, data.filePath)
             loadQuestion(data.description)
             break;
+        case "answers":
+            console.log(data);
+            break;
+        case "redirect":
+            window.location.href = data.redirectURL;
+            break;
         default:
             console.error("Unknown message type", type)
     }
@@ -68,6 +74,9 @@ function loadMedia(mediaType, filePath) {
 
 function loadQuestion(question) {
     document.querySelector('#question').innerHTML = `${question}`;
+
+    document.querySelector('#nextQuestion').style.display = "inline"
+    document.querySelector(".chatRoomWrapper").style.visibility = "visible";
 }
 
 function loadChatRoom(joinMessage) {
