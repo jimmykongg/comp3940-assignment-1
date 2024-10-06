@@ -2,6 +2,8 @@ package com.quizapp.quizroom;
 
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.quizapp.database.DatabaseConnection;
@@ -22,12 +24,13 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class quizRoomSocket {
     private static final Log logger = LogFactory.getLog(quizRoomSocket.class);
     private static final Set<quizRoomSocket> connections = new CopyOnWriteArraySet<>();
+    private static int questionIndex = 0;
+    private static int categoryID = -1;
 
     private Session session;
-    private String categoryID;
 
     @OnOpen
-    public void onOpen(Session session) throws UnsupportedEncodingException {
+    public void onOpen(Session session) {
         this.session = session;
         connections.add(this);
 
@@ -36,15 +39,51 @@ public class quizRoomSocket {
 
         // Store categoryId from websocket URL
         if (query != null && query.contains("categoryID=")) {
-            categoryID = queryParams.get("categoryID");
+            categoryID = Integer.parseInt(queryParams.get("categoryID"));
 
             System.out.println("CategoryID: " + categoryID);
         }
 
-        /*
-         * Load user information stored in JWT into websocket session
-         */
         String token = queryParams.get("token");
+        try {
+            loadHttpSessionData(token, session);
+        } catch (UnsupportedEncodingException e) {
+            logger.error("Error loading http session data: " + e.getMessage());
+        }
+
+        if (getRole().equalsIgnoreCase("admin")) {
+            sendQuestionToAdmin(session);
+        }
+    }
+
+    @OnMessage
+    public void onMessage(String message, Session session) throws IOException {
+        JsonObject jsonObject = new JsonParser().parse(message).getAsJsonObject();
+        String type = jsonObject.get("type").getAsString();
+
+        switch (type) {
+            case "getNextQuestion":
+                sendQuestionToAdmin(session);
+                break;
+            default:
+                logger.error("Unrecognized message type: " + type);
+        }
+        session.getBasicRemote().sendText(message);
+    }
+
+    @OnClose
+    public void onClose(){
+        System.out.println("close");
+    }
+
+    @OnError
+    public void onError(Throwable t){
+        System.out.println("Connection has error: " + t.getMessage());
+        t.printStackTrace();
+    }
+
+    // Load http session user data stored in JWT into websocket session
+    private void loadHttpSessionData(String token, Session session) throws UnsupportedEncodingException {
         if (token != null) {
             token = URLDecoder.decode(token, StandardCharsets.UTF_8.toString());
             JsonObject jsonObject = JsonParser.parseString(token).getAsJsonObject();
@@ -59,11 +98,6 @@ public class quizRoomSocket {
                 session.getUserProperties().put("username", username);
                 session.getUserProperties().put("role", role);
 
-                // Store quiz index to admins' session only since they're responsible to host the quiz
-                if (role.equalsIgnoreCase("admin")) {
-                    session.getUserProperties().put("quizIndex", 0);
-                }
-
                 System.out.println("Connected user: " + username + ", Role: " + role);
             } else {
                 System.out.println("Invalid token provided.");
@@ -73,31 +107,32 @@ public class quizRoomSocket {
         }
 
         logger.info("Connection is ok");
+
+        Map<String, Object> message = new HashMap<>();
+        String joinMessage = "[" + getRole().toUpperCase() + "] " + getUsername() + " has joined.";
+        message.put("type", "joinRoom");
+        message.put("joinMessage", joinMessage);
+
+        // Convert the data map to a JSON string
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonString = gson.toJson(message);
+
+        // Send JSON data to the admin via WebSocket
+        try {
+            session.getBasicRemote().sendText(jsonString);
+        } catch (IOException e) {
+            logger.error("Failed to send join message: " + e.getMessage(), e);
+        }
     }
 
-    @OnMessage
-    public void onMessage(String message, Session session) throws IOException {
-        session.getBasicRemote().sendText(message);
-    }
-
-    @OnClose
-    public void onClose(){
-        System.out.println("close");
-    }
-
-    @OnError
-    public void onError(Throwable t){
-        System.out.println("Connection has error: " + t.getMessage());
-    }
-
-    // Method to fetch quiz data from the database
+    // Fetch quiz data from the database
     private Map<String, String> getQuizData() {
-        String quizSql = "SELECT id, description, media_id FROM quizzes WHERE category_id = ? AND id > ? LIMIT 1";
+        String quizSql = "SELECT id, description, media_id FROM quizzes WHERE category_id = ? AND id > ? ORDER BY id ASC LIMIT 1";
 
         List<Object> quizParams = new ArrayList<>();
-        // Assume categoryID is passed via URL and extracted similarly
+
         quizParams.add(categoryID);
-        quizParams.add(getQuizIndex());
+        quizParams.add(questionIndex);
 
         try {
             return DatabaseConnection.queryOne(quizSql, quizParams);
@@ -107,11 +142,71 @@ public class quizRoomSocket {
         }
     }
 
-    /*
-     * Some helper and ultility methods
-     */
+    // Fetch media details from the database
+    private Map<String, String> getMediaData(Integer mediaId) {
+        String mediaSql = "SELECT media_type, file_path FROM media WHERE id = ?";
 
-    // Some getter methods
+        List<Object> params = new ArrayList<>();
+        params.add(mediaId);
+
+        try {
+            return DatabaseConnection.queryOne(mediaSql, params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Send JSON data (quiz description, mediaType, and filePath) to admin client
+    private void sendQuestionToAdmin(Session session) {
+        String description = "", mediaType = "", filePath = "";
+        int quizID = -1, mediaID = -1;
+        // Data where admin needs in order to host the quiz
+        Map<String, Object> adminData = new HashMap<>();
+
+        Map<String, String> quizData = getQuizData();
+
+        if (quizData != null) {
+            quizID = Integer.parseInt(quizData.get("id"));
+            description = quizData.get("description");
+            mediaID = Integer.parseInt(quizData.get("media_id"));
+        }
+
+        if (mediaID > -1) {
+            Map<String, String> mediaData = getMediaData(mediaID);
+            mediaType = mediaData.get("media_type");
+            filePath = mediaData.get("file_path");
+        }
+
+        // !!IMPORTANT: Update quizIndex to current quizID in order to load next question
+        questionIndex = quizID;
+
+        adminData.put("type", "question");
+        adminData.put("description", description);
+        adminData.put("mediaType", mediaType);
+        adminData.put("filePath", filePath);
+
+        // Convert the data map to a JSON string
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonString = gson.toJson(adminData);
+
+        // Send JSON data to the admin via WebSocket
+        try {
+            session.getBasicRemote().sendText(jsonString);
+        } catch (IOException e) {
+            logger.error("Failed to send data to admin: " + e.getMessage(), e);
+        }
+    }
+
+    // Method to handle user answer submission
+    private void handleUserAnswer(String username, String answer) {
+        System.out.println("User: " + username + " submitted answer: " + answer);
+        // Here you could store the answer in the database or collect it for the admin to review.
+    }
+
+    /*
+     * Some helper methods and utility methods
+     */
     private String getUsername() {
         return (String) session.getUserProperties().get("username");
     }
@@ -120,11 +215,10 @@ public class quizRoomSocket {
         return (String) session.getUserProperties().get("role");
     }
 
-    private int getQuizIndex() {
+
+    private void setQuizIndex(int curQuizID) {
         if (getRole().equalsIgnoreCase("admin")) {
-            return (int) session.getUserProperties().get("quizIndex");
-        } else {
-            return -1;
+            session.getUserProperties().put("quizIndex", curQuizID);
         }
     }
 
