@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 @WebServlet("/createRoom")
 public class CreateRoomServlet extends HttpServlet {
+    private static final Log logger = LogFactory.getLog(CreateRoomServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -30,21 +33,20 @@ public class CreateRoomServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        System.out.println("doPost of /createRoom is called");
+        logger.info("doPost of /createRoom is called");
 
         String categoryID = req.getParameter("category");
         String roomID = req.getParameter("roomID");
 
+        if (RoomManager.hasID(roomID)) {
+            logger.error("Room ID " + roomID + " already exists");
+        } else {
+            Room newRoom = new Room(categoryID, roomID);
+            RoomManager.addRoom(roomID, newRoom);
+            logger.info("Room ID " + roomID + " created");
+        }
+
         String url = "/quizRoom?categoryID=" + categoryID + "&roomID=" + roomID;
         res.sendRedirect(url);
-
-//        if(RoomManager.hasID(roomID)){
-//            // the room id is already used.
-//            // send a error message back.
-//        }else{
-////            Room newRoom = new Room(categoryID, roomID);
-////            RoomManager.addRoom(roomID, newRoom);
-//
-//        }
     }
 }

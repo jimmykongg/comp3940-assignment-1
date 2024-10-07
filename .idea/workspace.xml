@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="QuizApp:war exploded" />
+      <artifact name="QuizApp:war" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,10 +10,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0e2c229-246b-4b15-a98a-2450ca81cd62" name="Changes" comment="Fix for Aspectj to compile.">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/JoinQuizRoomServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/JwtUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/pages/joinRoom.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/quizRoom.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/aspects/Logging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/aspects/Logging.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/authentication/CheckAuthServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/authentication/CheckAuthServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/aop.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/aop.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/CreateRoomServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/CreateRoomServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/LobbyServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/LobbyServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/RoomManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/RoomManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/quizRoomSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/quizRoomSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/lobby.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/lobby.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/quizRoom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/quizRoom.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/quizRoom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/quizRoom.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +42,7 @@
         <option value="Jsp File" />
         <option value="JavaScript File" />
         <option value="Class" />
+        <option value="Jsp File" />
       </list>
     </option>
   </component>
@@ -43,13 +59,6 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="printErrorStackTraces" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -64,37 +73,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.QuizApp [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.QuizApp [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.QuizApp [deploy].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.QuizApp [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.QuizApp [validate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.QuizApp [verify].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.quizapp.executor&quot;: &quot;Run&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/ziqi/Documents/BcitStudy/Term3/Client-Server/Assignment1/test/comp3940-assignment-1/src/main/java/com/quizapp/admin&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "Maven.QuizApp [clean].executor": "Run",
+    "Maven.QuizApp [compile].executor": "Run",
+    "Maven.QuizApp [deploy].executor": "Run",
+    "Maven.QuizApp [package].executor": "Run",
+    "Maven.QuizApp [validate].executor": "Run",
+    "Maven.QuizApp [verify].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Tomcat Server.Tomcat.executor": "Run",
+    "Tomcat Server.quizapp.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Merging dev",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/ziqi/Documents/BcitStudy/Term3/Client-Server/Assignment1/test/comp3940-assignment-1/src/main/java/com/quizapp/admin",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/quizapp/admin" />
@@ -202,7 +211,7 @@
     <configuration name="quizapp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.29" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home" show_console_on_std_err="true" show_console_on_std_out="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="QuizApp:war exploded">
+        <artifact name="QuizApp:war">
           <settings>
             <option name="CONTEXT_PATH" value="/" />
           </settings>
@@ -211,6 +220,7 @@
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="c88c6c40-b918-4ba8-8271-7be9c4d6bba6" />
         <option name="DEPLOY_TOMCAT_APPS" value="true" />
+        <option name="HTTP_PORT" value="8083" />
         <option name="JNDI_PORT" value="2099" />
       </server-settings>
       <log_file alias="Tomcat Manager Log" path="%IDEA_RUN:CATALINA_BASE%/logs/manager.*" />
@@ -218,6 +228,9 @@
       <log_file alias="Tomcat Localhost Access Log" path="%IDEA_RUN:CATALINA_BASE%/logs/localhost_access_log.*" />
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="49513" />
       </RunnerSettings>
@@ -284,7 +297,7 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="QuizApp:war exploded" />
+          <artifact name="QuizApp:war" />
         </option>
       </method>
     </configuration>

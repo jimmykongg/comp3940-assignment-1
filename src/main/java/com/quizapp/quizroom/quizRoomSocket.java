@@ -1,56 +1,403 @@
 package com.quizapp.quizroom;
 
 
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.quizapp.database.DatabaseConnection;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+
 import java.io.IOException;
-import java.util.Set;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-@ServerEndpoint("/quizRoomSocket")
+@ServerEndpoint(value = "/quizRoomSocket")
 public class quizRoomSocket {
+    private static final Log logger = LogFactory.getLog(quizRoomSocket.class);
     private static final Set<quizRoomSocket> connections = new CopyOnWriteArraySet<>();
+    // questionIndex would be updated whenever questions are fetched
+    private static int questionIndex = 0;
+    private static int categoryID = -1;
+    private static String roomID = "";
+
     private Session session;
+    /*
+     * The queue of messages that may build up while another message is being sent. The thread that sends a message is
+     * responsible for clearing any queue that builds up while that message is being sent.
+     */
+//    private Queue<String> messageBacklog = new ArrayDeque<>();
+//    private boolean messageInProgress = false;
 
     @OnOpen
-    public void onOpen(Session session){
+    public void onOpen(Session session) {
         this.session = session;
         connections.add(this);
-        String message = String.format("* %s %s", session.getId(), "has joined.");
-        System.out.println("Connection is ok");
+
+        String query = session.getQueryString();
+        Map<String, String> queryParams = parseQueryString(query);
+
+        // Store categoryId from websocket URL
+        if (query != null && query.contains("categoryID=")) {
+            categoryID = Integer.parseInt(queryParams.get("categoryID"));
+            roomID = queryParams.get("roomID");
+
+            System.out.println("CategoryID: " + categoryID);
+        }
+
+        String token = queryParams.get("token");
+        try {
+            loadHttpSessionData(token, session);
+        } catch (UnsupportedEncodingException e) {
+            logger.error("Error loading http session data: " + e.getMessage());
+        }
+
+        if (getRole().equalsIgnoreCase("admin")) {
+            sendQuestionToAdmin(session);
+        } else if (getRole().equalsIgnoreCase("general")) {
+            sendAnswersToGeneral(session);
+        }
     }
 
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
-        session.getBasicRemote().sendText(message);
-        broadcast(message);
+        JsonObject jsonObject = new JsonParser().parse(message).getAsJsonObject();
+        String type = jsonObject.get("type").getAsString();
+
+        switch (type) {
+            case "getNextQuestion":
+                sendQuestionToAdmin(session);
+                broadcastAnswersToGeneral();
+                break;
+            case "submitAnswer":
+                int answerID = Integer.parseInt(jsonObject.get("answerID").getAsString());
+                String username = jsonObject.get("username").getAsString();
+                String role = jsonObject.get("role").getAsString();
+
+                sendSubmissionToAdmin(answerID, username, role);
+                break;
+            default:
+                logger.error("Unrecognized message type: " + type);
+        }
+
+        if (session.isOpen()) {
+            session.getBasicRemote().sendText(message);
+        }
     }
 
     @OnClose
     public void onClose(){
-        connections.remove(this);
-        System.out.println("close");
+        System.out.println(getUsername() + " closes connection");
     }
 
     @OnError
     public void onError(Throwable t){
         System.out.println("Connection has error: " + t.getMessage());
+        t.printStackTrace();
     }
 
+    // Load http session user data stored in JWT into websocket session
+    private void loadHttpSessionData(String token, Session session) throws UnsupportedEncodingException {
+        if (token != null) {
+            token = URLDecoder.decode(token, StandardCharsets.UTF_8.toString());
+            JsonObject jsonObject = JsonParser.parseString(token).getAsJsonObject();
+            token = jsonObject.get("token").getAsString();  // Extract the real JWT token
+            DecodedJWT decodedJWT = JwtUtil.verifyToken(token);
 
-    private void broadcast(String message) throws IOException {
+            if (decodedJWT != null) {
+                String username = decodedJWT.getSubject();
+                String role = decodedJWT.getClaim("role").asString();
+
+                // Store user information in WebSocket session user properties
+                session.getUserProperties().put("username", username);
+                session.getUserProperties().put("role", role);
+
+                System.out.println("Connected user: " + username + ", Role: " + role);
+            } else {
+                System.out.println("Invalid token provided.");
+            }
+        } else {
+            System.out.println("No token provided in WebSocket connection.");
+        }
+
+        logger.info("Connection is ok");
+
+        // Send the connection message to admin to display it in the chatroom
+        String username = getUsername();
+        String role = getRole();
+        sendConnectionMessageToAdmin(username, role);
+    }
+
+    // Fetch quiz data from the database
+    private Map<String, String> getQuizData() {
+        String quizSql = "SELECT id, description, media_id FROM quizzes WHERE category_id = ? AND id > ? ORDER BY id ASC LIMIT 1";
+
+        List<Object> quizParams = new ArrayList<>();
+
+        quizParams.add(categoryID);
+        quizParams.add(questionIndex);
+
+        try {
+            return DatabaseConnection.queryOne(quizSql, quizParams);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Fetch media details from the database
+    private Map<String, String> getMediaData(Integer mediaId) {
+        String mediaSql = "SELECT media_type, file_path FROM media WHERE id = ?";
+
+        List<Object> params = new ArrayList<>();
+        params.add(mediaId);
+
+        try {
+            return DatabaseConnection.queryOne(mediaSql, params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Send JSON data (quiz description, mediaType, and filePath) to admin client
+    private void sendQuestionToAdmin(Session session) {
+        String description = "", mediaType = "", filePath = "";
+        int quizID = -1, mediaID = -1;
+        // Data where admin needs in order to host the quiz
+        Map<String, Object> adminData = new HashMap<>();
+
+        Map<String, String> quizData = getQuizData();
+
+        if (quizData != null && !quizData.isEmpty()) {
+            quizID = Integer.parseInt(quizData.get("id"));
+            description = quizData.get("description");
+            mediaID = Integer.parseInt(quizData.get("media_id"));
+        } else {
+            // If there's no quiz questions left, close all client connections
+            closeAllConnections();
+            return;
+        }
+
+        if (mediaID > -1) {
+            Map<String, String> mediaData = getMediaData(mediaID);
+            mediaType = mediaData.get("media_type");
+            filePath = mediaData.get("file_path");
+        }
+
+        // !!IMPORTANT: Update quizIndex to current quizID in order to load next question
+        questionIndex = quizID;
+
+        adminData.put("type", "question");
+        adminData.put("description", description);
+        adminData.put("mediaType", mediaType);
+        adminData.put("filePath", filePath);
+
+        // Convert the data map to a JSON string
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonString = gson.toJson(adminData);
+
+        // Send JSON data to the admin via WebSocket
+        try {
+            session.getBasicRemote().sendText(jsonString);
+        } catch (IOException e) {
+            logger.error("Failed to send data to admin: " + e.getMessage(), e);
+        }
+    }
+
+    // Send JSON data (general users' quiz answer submission) to admin client
+    private void sendSubmissionToAdmin(int answerID, String username, String role) {
+        Map<String, String> answerCheck = checkAnswer(answerID);
+        String checkMessage = "";
+        String displayColor = "";
+        if (answerCheck != null) {
+            boolean isCorrect = answerCheck.get("right_answer").equalsIgnoreCase("t");
+
+            if (isCorrect) {
+                checkMessage = username + " chose the correct answer! (" + answerCheck.get("description") + ")";
+                displayColor = "rgb(30, 255, 0)"; // green color
+            } else {
+                checkMessage = username + " chose the wrong answer (" + answerCheck.get("description") + ")";
+                displayColor = "rgb(255, 0, 0)";
+            }
+        }
+
         for (quizRoomSocket client : connections) {
-            try {
-                if (client.session.isOpen()) {
-                    client.session.getBasicRemote().sendText(message);
+            if (client.getRole().equalsIgnoreCase("admin")) {
+                Map<String, Object> message = new HashMap<>();
+                message.put("type", "checkAnswer");
+                message.put("checkMessage", checkMessage);
+                message.put("displayColor", displayColor);
+
+                // Convert the data map to a JSON string
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                String jsonString = gson.toJson(message);
+
+                // Send JSON data to the admin via WebSocket
+                try {
+                    client.session.getBasicRemote().sendText(jsonString);
+                } catch (IOException e) {
+                    logger.error("Failed to send show submission correctness message: " + e.getMessage(), e);
                 }
-            } catch (IOException e) {
-                System.err.println("Error sending message to client: " + e.getMessage());
-                connections.remove(client);
-                client.session.close();
             }
         }
     }
+
+    // Check whether users' answer submission is correct is not from the database
+    private Map<String, String> checkAnswer(int answerID) {
+        String ansSql = "SELECT description, right_answer FROM answers WHERE id = ?";
+
+        List<Object> ansParams = new ArrayList<>();
+        ansParams.add(answerID);
+        Map<String, String> answerCheck;
+        try {
+            answerCheck = DatabaseConnection.queryOne(ansSql, ansParams);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (!answerCheck.isEmpty()) {
+            return answerCheck;
+        } else {
+            logger.error("No record for this answer");
+            return null;
+        }
+    }
+
+    // Send JSON data (connection message to admin client
+    private void sendConnectionMessageToAdmin(String username, String role) {
+        for (quizRoomSocket client : connections) {
+            if (client.getRole().equalsIgnoreCase("admin")) {
+                Map<String, Object> message = new HashMap<>();
+                String joinMessage = "[" + role.toUpperCase() + "] " + username + " has joined the quiz.";
+                message.put("type", "joinRoom");
+                message.put("joinMessage", joinMessage);
+
+                // Convert the data map to a JSON string
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                String jsonString = gson.toJson(message);
+
+                // Send JSON data to the admin via WebSocket
+                try {
+                    client.session.getBasicRemote().sendText(jsonString);
+                } catch (IOException e) {
+                    logger.error("Failed to send join message: " + e.getMessage(), e);
+                }
+            }
+        }
+    }
+
+    // Send JSON answers data (questionID, description) to general clients
+    private void sendAnswersToGeneral(Session session) {
+        Map<String, Object> answersData = new HashMap<>();
+        List<Map<String, String>> answers = getQuizAnswers();
+
+        // use session.getUserProperties.get(key) instead of getter method getUsername()
+        // because we're getting username of specific user, not the current one
+        answersData.put("type", "answers");
+        answersData.put("username", session.getUserProperties().get("username"));
+        answersData.put("role", session.getUserProperties().get("role"));
+        answersData.put("answers", answers);
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonString = gson.toJson(answersData);
+
+        try {
+            session.getBasicRemote().sendText(jsonString);
+        } catch (IOException e) {
+            logger.error("Failed to send JSON answers to general clients: " + e.getMessage(), e);
+        }
+    }
+
+    // Send JSON data to particular group(s) of clients(
+    private void broadcastAnswersToGeneral() {
+        for (quizRoomSocket client : connections) {
+            if (client.getRole().equalsIgnoreCase("general")) {
+                sendAnswersToGeneral(client.session);
+            }
+        }
+    }
+
+    // Fetch quiz answers from the database
+    private List<Map<String, String>> getQuizAnswers() {
+        String ansSql = "SELECT id, description FROM answers WHERE quiz_id = ?";
+        List<Object> ansParams = new ArrayList<>();
+        ansParams.add(questionIndex);
+        List<Map<String, String>> answers = null;
+        try {
+            answers = DatabaseConnection.query(ansSql, ansParams);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (!answers.isEmpty()) {
+            return answers;
+        } else {
+            logger.error("No answer for this question");
+            return null;
+        }
+    }
+
+    // handle closing all connections and instruct clients to leave the quiz room by URL redirection
+    private void closeAllConnections() {
+        for (quizRoomSocket client : connections) {
+                String redirectURL = "/categories";
+                Map<String, String> message = new HashMap<>();
+                message.put("type", "redirect");
+                message.put("redirectURL", redirectURL);
+
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                String jsonString = gson.toJson(message);
+
+            try {
+                client.session.getBasicRemote().sendText(jsonString);
+                client.session.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Quiz ended, redirecting"));
+            } catch (IOException e) {
+                logger.error("Failed to close connection for client: " + e.getMessage(), e);
+            }
+        }
+
+        // remove current quiz room when all clients are disconnected
+        RoomManager.removeRoom(roomID);
+    }
+
+    /*
+     * Some helper methods and utility methods
+     */
+    private String getUsername() {
+        return (String) session.getUserProperties().get("username");
+    }
+
+    private String getRole() {
+        return (String) session.getUserProperties().get("role");
+    }
+
+    private void setQuizIndex(int curQuizID) {
+        if (getRole().equalsIgnoreCase("admin")) {
+            session.getUserProperties().put("quizIndex", curQuizID);
+        }
+    }
+
+    // Utility method to parse websocket query string into a map of key-value pairs
+    private Map<String, String> parseQueryString(String query) {
+        Map<String, String> queryParams = new HashMap<>();
+        String[] pairs = query.split("&");
+        for (String pair : pairs) {
+            int idx = pair.indexOf("=");
+            if (idx > 0 && idx < pair.length() - 1) {
+                String key = pair.substring(0, idx);
+                String value = pair.substring(idx + 1);
+                queryParams.put(key, value);
+            }
+        }
+        return queryParams;
+    }
 }
-
-
