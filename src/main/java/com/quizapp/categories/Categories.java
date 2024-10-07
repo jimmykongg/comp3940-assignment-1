@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @WebServlet("/categories")
 public class Categories extends HttpServlet {
@@ -23,9 +24,9 @@ public class Categories extends HttpServlet {
         HttpSession session = req.getSession(false);
         System.out.println(session);
 
-
-        if(session == null) req.getRequestDispatcher("/pages/index.js").forward(req, res);
-        else {
+        if (session == null) {
+            req.getRequestDispatcher("/pages/index.js").forward(req, res);
+        } else {
             session.setAttribute("quizIndex", 0);
 
             System.out.println("quizIndex set to " + session.getAttribute("quizIndex"));
@@ -36,9 +37,15 @@ public class Categories extends HttpServlet {
         String sql = "SELECT * FROM category";
         try {
             List<Map<String, String>> categories = DatabaseConnection.query(sql, null);
-            req.setAttribute("categories", categories);
+
+            // Use Stream API to sort categories alphabeticaly and lambda function
+            List<Map<String, String>> sortedCategories = categories.stream()
+                    .sorted((category1, category2) -> category1.get("name").compareToIgnoreCase(category2.get("name")))
+                    .collect(Collectors.toList());
+
+            req.setAttribute("categories", sortedCategories);
             req.getRequestDispatcher("/pages/categories.jsp").forward(req, res);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             req.setAttribute("message", e.getMessage());
             req.getRequestDispatcher("/pages/error.jsp").forward(req, res);
         }
