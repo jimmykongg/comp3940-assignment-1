@@ -38,7 +38,7 @@ public class Categories extends HttpServlet {
         try {
             List<Map<String, String>> categories = DatabaseConnection.query(sql, null);
 
-            // Use Stream API to sort categories alphabeticaly and lambda function
+            // Use Stream API to sort categories alphabeticaly and lambda function to sort
             List<Map<String, String>> sortedCategories = categories.stream()
                     .sorted((category1, category2) -> category1.get("name").compareToIgnoreCase(category2.get("name")))
                     .collect(Collectors.toList());
