@@ -9,12 +9,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="b0e2c229-246b-4b15-a98a-2450ca81cd62" name="Changes" comment="Fix for Aspectj to compile.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/media/MediaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/media/MediaServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/images/spiderman.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/images/spiderman.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" afterDir="false" />
+=======
+    <list default="true" id="b0e2c229-246b-4b15-a98a-2450ca81cd62" name="Changes" comment="Fixed image source pathing.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/DaoPattern/Entities/Answer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/DaoPattern/Entities/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/DaoPattern/Entities/Media.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/DaoPattern/Entities/Quiz.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/DaoPattern/Entities/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/DaoPattern/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/DaoPattern/EntityFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/DaoPattern/IRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/DaoPattern/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/AdminServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/AdminServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/CreateQuiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/CreateQuiz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/DeleteQuiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/DeleteQuiz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/EditQuiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/admin/EditQuiz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/authentication/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/authentication/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/authentication/SignupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/authentication/SignupServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/AutoPlay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/AutoPlay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/DaoPattern/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/media/MediaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/media/MediaServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/CreateRoomServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/CreateRoomServlet.java" afterDir="false" />
+>>>>>>> Ziqi_DAO
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +53,7 @@
         <option value="HTML File" />
         <option value="Jsp File" />
         <option value="JavaScript File" />
+        <option value="Interface" />
         <option value="Class" />
         <option value="Jsp File" />
       </list>
@@ -75,7 +102,7 @@
     "Tomcat Server.Tomcat.executor": "Run",
     "Tomcat Server.quizapp.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "Ziqi__DAO",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/ziqi/Documents/BcitStudy/Term3/Client-Server/Assignment1/test/comp3940-assignment-1/src/main/java/com/quizapp/admin",
     "node.js.detected.package.eslint": "true",
@@ -194,7 +221,12 @@
         </option>
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="quizapp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.29" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home" show_console_on_std_err="true" show_console_on_std_out="true">
+=======
+    <configuration name="quizapp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.29" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="17">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8081/" />
+>>>>>>> Ziqi_DAO
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="QuizApp:war">
