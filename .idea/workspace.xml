@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47b4461b-8f39-4dcc-8d62-a669044b2219" name="Changes" comment="AspectJ changes">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/aspects/Logging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/aspects/Logging.java" afterDir="false" />
+    <list default="true" id="47b4461b-8f39-4dcc-8d62-a669044b2219" name="Changes" comment="Aspect join point for user login only">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,12 +23,18 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.QuizApp [clean].executor": "Run",
+    "Maven.QuizApp [compile].executor": "Run",
+    "Tomcat Server.Tomcat 10.1.29.executor": "Run",
+    "git-widget-placeholder": "dev",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Tomcat 10.1.29" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.29" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
@@ -111,17 +118,24 @@
       </ConfigurationWrapper>
       <method v="2">
         <option name="Make" enabled="true" />
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="QuizApp:war exploded" />
-        </option>
       </method>
     </configuration>
   </component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="Aspect join point for user login only">
+      <option name="closed" value="true" />
+      <created>1728276311590</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728276311590</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="AspectJ changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="AspectJ changes" />
+    <MESSAGE value="Aspect join point for user login only" />
+    <option name="LAST_COMMIT_MESSAGE" value="Aspect join point for user login only" />
   </component>
 </project>
