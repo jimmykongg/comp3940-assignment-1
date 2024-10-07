@@ -61,7 +61,7 @@ public class quizRoomSocket {
         if (getRole().equalsIgnoreCase("admin")) {
             sendQuestionToAdmin(session);
         } else if (getRole().equalsIgnoreCase("general")) {
-            sendAnswersToGeneral();
+            sendAnswersToGeneral(session);
         }
     }
 
@@ -73,6 +73,7 @@ public class quizRoomSocket {
         switch (type) {
             case "getNextQuestion":
                 sendQuestionToAdmin(session);
+                broadcastAnswersToGeneral();
                 break;
             case "submitAnswer":
                 int answerID = Integer.parseInt(jsonObject.get("answerID").getAsString());
@@ -293,13 +294,15 @@ public class quizRoomSocket {
     }
 
     // Send JSON answers data (questionID, description) to general clients
-    private void sendAnswersToGeneral() {
+    private void sendAnswersToGeneral(Session session) {
         Map<String, Object> answersData = new HashMap<>();
         List<Map<String, String>> answers = getQuizAnswers();
 
+        // use session.getUserProperties.get(key) instead of getter method getUsername()
+        // because we're getting username of specific user, not the current one
         answersData.put("type", "answers");
-        answersData.put("username", getUsername());
-        answersData.put("role", getRole());
+        answersData.put("username", session.getUserProperties().get("username"));
+        answersData.put("role", session.getUserProperties().get("role"));
         answersData.put("answers", answers);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -309,6 +312,15 @@ public class quizRoomSocket {
             session.getBasicRemote().sendText(jsonString);
         } catch (IOException e) {
             logger.error("Failed to send JSON answers to general clients: " + e.getMessage(), e);
+        }
+    }
+
+    // Send JSON data to particular group(s) of clients(
+    private void broadcastAnswersToGeneral() {
+        for (quizRoomSocket client : connections) {
+            if (client.getRole().equalsIgnoreCase("general")) {
+                sendAnswersToGeneral(client.session);
+            }
         }
     }
 
@@ -332,21 +344,6 @@ public class quizRoomSocket {
         }
     }
 
-    // Send JSON data to particular group(s) of clients(
-    private void broadcast(String jsonString) {
-        for (quizRoomSocket connection : connections) {
-            if (connection.getRole().equalsIgnoreCase("general")) {
-
-            }
-        }
-    }
-
-    // handle user answer submission
-    private void handleUserAnswer(String username, String answer) {
-        System.out.println("User: " + username + " submitted answer: " + answer);
-        // Here you could store the answer in the database or collect it for the admin to review.
-    }
-
     // handle closing all connections and instruct clients to leave the quiz room by URL redirection
     private void closeAllConnections() {
         for (quizRoomSocket client : connections) {
@@ -359,7 +356,7 @@ public class quizRoomSocket {
                 String jsonString = gson.toJson(message);
 
             try {
-                session.getBasicRemote().sendText(jsonString);
+                client.session.getBasicRemote().sendText(jsonString);
                 client.session.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Quiz ended, redirecting"));
             } catch (IOException e) {
                 logger.error("Failed to close connection for client: " + e.getMessage(), e);

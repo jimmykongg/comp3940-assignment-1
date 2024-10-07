@@ -13,9 +13,6 @@
     <list default="true" id="b0e2c229-246b-4b15-a98a-2450ca81cd62" name="Changes" comment="Fixed image source pathing.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/quizRoomSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/quizRoomSocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/quizRoom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/quizRoom.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/quizRoom.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/quizRoom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/quizRoom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/quizRoom.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,20 +233,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/quizRoomSocket.java</url>
-          <line>213</line>
-          <properties class="com.quizapp.quizroom.quizRoomSocket" method="sendSubmissionToAdmin">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

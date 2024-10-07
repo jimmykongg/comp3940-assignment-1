@@ -13,9 +13,6 @@ public class LobbyServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
-
         req.getRequestDispatcher("/pages/lobby.jsp").forward(req, res);
-
     }
 }
