@@ -50,6 +50,9 @@ function loadContents(data) {
         case "answers":
             loadAnswers(data.answers, data.username, data.role)
             break;
+        case "checkAnswer":
+            loadCheckMessage(data.checkMessage, data.displayColor)
+            break;
         case "redirect":
             window.location.href = data.redirectURL;
             break;
@@ -82,7 +85,7 @@ function loadQuestion(question) {
 function loadChatRoom(joinMessage) {
     const chatRoom = document.querySelector("#chatRoom")
 
-    chatRoom.insertAdjacentHTML("beforeend", joinMessage)
+    chatRoom.insertAdjacentHTML("beforeend", `<p>${joinMessage}</p>`)
 }
 
 function getNextQuestion() {
@@ -121,4 +124,10 @@ function handleSubmitAnswer(username, role) {
             ws.send(JSON.stringify(answer))
         })
     })
+}
+
+function loadCheckMessage(message, color) {
+    document.querySelector("#chatRoom").insertAdjacentHTML("beforeend", `
+        <p style="color: ${color};">${message}</p>
+    `)
 }

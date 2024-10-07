@@ -27,7 +27,7 @@
     </div>
 
     <div class="chatRoomWrapper">
-        <textarea id="chatRoom" rows="5" cols="50"></textarea>
+        <div id="chatRoom" rows="5" cols="50"></div>
     </div>
 </div>
 

@@ -75,10 +75,11 @@ public class quizRoomSocket {
                 sendQuestionToAdmin(session);
                 break;
             case "submitAnswer":
-                String answerID = jsonObject.get("answerID").getAsString();
+                int answerID = Integer.parseInt(jsonObject.get("answerID").getAsString());
                 String username = jsonObject.get("username").getAsString();
-                System.out.println(answerID);
-                System.out.println(username);
+                String role = jsonObject.get("role").getAsString();
+
+                sendSubmissionToAdmin(answerID, username, role);
                 break;
             default:
                 logger.error("Unrecognized message type: " + type);
@@ -126,22 +127,10 @@ public class quizRoomSocket {
 
         logger.info("Connection is ok");
 
-        // TODO Change it to send to admin
-        Map<String, Object> message = new HashMap<>();
-        String joinMessage = "[" + getRole().toUpperCase() + "] " + getUsername() + " has joined.";
-        message.put("type", "joinRoom");
-        message.put("joinMessage", joinMessage);
-
-        // Convert the data map to a JSON string
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String jsonString = gson.toJson(message);
-
-        // Send JSON data to the admin via WebSocket
-        try {
-            session.getBasicRemote().sendText(jsonString);
-        } catch (IOException e) {
-            logger.error("Failed to send join message: " + e.getMessage(), e);
-        }
+        // Send the connection message to admin to display it in the chatroom
+        String username = getUsername();
+        String role = getRole();
+        sendConnectionMessageToAdmin(username, role);
     }
 
     // Fetch quiz data from the database
@@ -218,6 +207,88 @@ public class quizRoomSocket {
             session.getBasicRemote().sendText(jsonString);
         } catch (IOException e) {
             logger.error("Failed to send data to admin: " + e.getMessage(), e);
+        }
+    }
+
+    // Send JSON data (general users' quiz answer submission) to admin client
+    private void sendSubmissionToAdmin(int answerID, String username, String role) {
+        Map<String, String> answerCheck = checkAnswer(answerID);
+        String checkMessage = "";
+        String displayColor = "";
+        if (answerCheck != null) {
+            boolean isCorrect = answerCheck.get("right_answer").equalsIgnoreCase("t");
+
+            if (isCorrect) {
+                checkMessage = username + " chose the correct answer! (" + answerCheck.get("description") + ")";
+                displayColor = "rgb(30, 255, 0)"; // green color
+            } else {
+                checkMessage = username + " chose the wrong answer (" + answerCheck.get("description") + ")";
+                displayColor = "rgb(255, 0, 0)";
+            }
+        }
+
+        for (quizRoomSocket client : connections) {
+            if (client.getRole().equalsIgnoreCase("admin")) {
+                Map<String, Object> message = new HashMap<>();
+                message.put("type", "checkAnswer");
+                message.put("checkMessage", checkMessage);
+                message.put("displayColor", displayColor);
+
+                // Convert the data map to a JSON string
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                String jsonString = gson.toJson(message);
+
+                // Send JSON data to the admin via WebSocket
+                try {
+                    client.session.getBasicRemote().sendText(jsonString);
+                } catch (IOException e) {
+                    logger.error("Failed to send show submission correctness message: " + e.getMessage(), e);
+                }
+            }
+        }
+    }
+
+    // Check whether users' answer submission is correct is not from the database
+    private Map<String, String> checkAnswer(int answerID) {
+        String ansSql = "SELECT description, right_answer FROM answers WHERE id = ?";
+
+        List<Object> ansParams = new ArrayList<>();
+        ansParams.add(answerID);
+        Map<String, String> answerCheck;
+        try {
+            answerCheck = DatabaseConnection.queryOne(ansSql, ansParams);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (!answerCheck.isEmpty()) {
+            return answerCheck;
+        } else {
+            logger.error("No record for this answer");
+            return null;
+        }
+    }
+
+    // Send JSON data (connection message to admin client
+    private void sendConnectionMessageToAdmin(String username, String role) {
+        for (quizRoomSocket client : connections) {
+            if (client.getRole().equalsIgnoreCase("admin")) {
+                Map<String, Object> message = new HashMap<>();
+                String joinMessage = "[" + role.toUpperCase() + "] " + username + " has joined the quiz.";
+                message.put("type", "joinRoom");
+                message.put("joinMessage", joinMessage);
+
+                // Convert the data map to a JSON string
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                String jsonString = gson.toJson(message);
+
+                // Send JSON data to the admin via WebSocket
+                try {
+                    client.session.getBasicRemote().sendText(jsonString);
+                } catch (IOException e) {
+                    logger.error("Failed to send join message: " + e.getMessage(), e);
+                }
+            }
         }
     }
 

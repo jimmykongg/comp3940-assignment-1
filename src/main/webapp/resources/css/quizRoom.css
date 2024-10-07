@@ -25,9 +25,19 @@
 
 .chatRoomWrapper {
     grid-area: chatRoom;
-    display: grid;
-    place-content: center;
+    display: flex;
+    justify-content: stretch;
     visibility: hidden;
+}
+
+#chatRoom {
+    width: 80%;
+    overflow-y: scroll;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin: 0 auto;
 }
 
 #nextQuestion {
@@ -39,3 +49,4 @@
     justify-content: center;
     gap: 16px;
 }
+
