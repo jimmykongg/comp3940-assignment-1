@@ -1,13 +1,10 @@
 package com.quizapp.admin;
 
-import com.google.gson.Gson;
-import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import java.io.*;
-import java.sql.*;
+
 import java.util.*;
-import com.quizapp.database.DatabaseConnection;
+import com.quizapp.DaoPattern.DatabaseConnection;
 
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
