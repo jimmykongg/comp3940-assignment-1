@@ -11,9 +11,7 @@ async function insertHTML() {
                 <button type="submit">Start playing quizzes</button>
             </form>
 
-            <form action="/api/logout" method="POST">
-                <button type="submit">Logout</button>
-            </form>
+            <button id="logoutButton">Logout</button>
         `;
 
     if (role === "admin") {
@@ -24,6 +22,16 @@ async function insertHTML() {
          </form>`
       );
     }
+
+    document.getElementById('logoutButton').addEventListener('click', async () => {
+      try {
+        await axios.post('/api/logout');
+        window.location.href = "/";
+      } catch (e) {
+        console.log("Error", e);
+      }
+    });
+
   } else {
     wrapper.innerHTML = `
         <form action="/login" method="GET">

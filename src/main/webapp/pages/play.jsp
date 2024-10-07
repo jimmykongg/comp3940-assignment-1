@@ -71,8 +71,8 @@
 
   window.onload = function() {
       const mediaId = '<%= quiz.get("media_id") %>';
-      let url = '/media?mediaId=' + mediaId;
-      if (url) {
+      if (mediaId) {
+          let url = '/media?mediaId=' + mediaId;
           loadMedia(url);
       }
   };

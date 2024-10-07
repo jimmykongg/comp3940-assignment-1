@@ -13,10 +13,17 @@ public class MediaServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        Integer mediaId = Integer.parseInt(req.getParameter("mediaId"));
+        String mediaIdParam = req.getParameter("mediaId");
+        if (mediaIdParam == null || mediaIdParam.isEmpty()) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing or invalid media ID");
+            return;
+        }
 
-        if (mediaId == null) {
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing media ID");
+        Integer mediaId;
+        try {
+            mediaId = Integer.parseInt(mediaIdParam);
+        } catch (NumberFormatException e) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid media ID format");
             return;
         }
 

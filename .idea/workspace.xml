@@ -10,25 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0e2c229-246b-4b15-a98a-2450ca81cd62" name="Changes" comment="Fix for Aspectj to compile.">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/JoinQuizRoomServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/JwtUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/pages/joinRoom.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/quizRoom.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/authentication/CheckAuthServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/authentication/CheckAuthServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/Categories.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/categories/PlayQuizzes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/CreateRoomServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/CreateRoomServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/LobbyServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/LobbyServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/RoomManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/RoomManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/quizRoomSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/quizroom/quizRoomSocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/lobby.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/lobby.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/quizapp/media/MediaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/quizapp/media/MediaServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/spiderman.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/images/spiderman.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/play.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/quizRoom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/quizRoom.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/quizRoom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/quizRoom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +75,7 @@
     "Tomcat Server.Tomcat.executor": "Run",
     "Tomcat Server.quizapp.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging dev",
+    "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/ziqi/Documents/BcitStudy/Term3/Client-Server/Assignment1/test/comp3940-assignment-1/src/main/java/com/quizapp/admin",
     "node.js.detected.package.eslint": "true",
