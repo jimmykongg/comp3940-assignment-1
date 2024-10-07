@@ -16,4 +16,6 @@ public class RoomManager {
     public static void addRoom(String roomID, Room newRoom) { roomMap.put(roomID, newRoom); }
 
     public static Map<String, Room> getRoomMap() { return roomMap; }
+
+    public static void removeRoom(String roomID){ roomMap.remove(roomID); }
 }

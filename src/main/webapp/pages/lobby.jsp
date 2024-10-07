@@ -12,7 +12,14 @@
 </head>
 <body>
 <jsp:include page="./template/header.jsp"/>
+<%
+    Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
+    if (isAdmin != null && isAdmin) {
+%>
 <a href="/createRoom">Create a quiz room</a>
+<%
+    }
+%>
 <a href="/joinRoom">Join a quiz room</a>
 
 </body>

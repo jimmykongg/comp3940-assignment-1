@@ -27,6 +27,7 @@ public class quizRoomSocket {
     // questionIndex would be updated whenever questions are fetched
     private static int questionIndex = 0;
     private static int categoryID = -1;
+    private static String roomID = "";
 
     private Session session;
     /*
@@ -47,6 +48,7 @@ public class quizRoomSocket {
         // Store categoryId from websocket URL
         if (query != null && query.contains("categoryID=")) {
             categoryID = Integer.parseInt(queryParams.get("categoryID"));
+            roomID = queryParams.get("roomID");
 
             System.out.println("CategoryID: " + categoryID);
         }
@@ -362,6 +364,9 @@ public class quizRoomSocket {
                 logger.error("Failed to close connection for client: " + e.getMessage(), e);
             }
         }
+
+        // remove current quiz room when all clients are disconnected
+        RoomManager.removeRoom(roomID);
     }
 
     /*
