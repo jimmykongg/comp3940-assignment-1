@@ -1,6 +1,6 @@
 package com.quizapp.admin;
 
-import com.quizapp.DaoPattern.DatabaseConnection;
+import com.quizapp.database.DatabaseConnection;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

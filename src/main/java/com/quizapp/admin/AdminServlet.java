@@ -4,7 +4,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.util.*;
-import com.quizapp.DaoPattern.DatabaseConnection;
+import com.quizapp.database.DatabaseConnection;
 
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {

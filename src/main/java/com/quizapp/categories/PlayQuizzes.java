@@ -1,13 +1,12 @@
 package com.quizapp.categories;
 
-import com.quizapp.DaoPattern.DatabaseConnection;
+import com.quizapp.database.DatabaseConnection;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.aspectj.lang.annotation.Aspect;
 
 import java.io.IOException;
 import java.sql.SQLException;

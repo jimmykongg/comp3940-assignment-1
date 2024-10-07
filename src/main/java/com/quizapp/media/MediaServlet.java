@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
-import com.quizapp.DaoPattern.DatabaseConnection;
+import com.quizapp.database.DatabaseConnection;
 
 @WebServlet("/media")
 public class MediaServlet extends HttpServlet {

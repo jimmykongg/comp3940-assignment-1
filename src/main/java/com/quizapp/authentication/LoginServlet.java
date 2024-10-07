@@ -7,7 +7,7 @@ import java.io.*;
 import java.sql.*;
 
 import org.mindrot.jbcrypt.BCrypt;
-import com.quizapp.DaoPattern.DatabaseConnection;
+import com.quizapp.database.DatabaseConnection;
 
 @WebServlet("/api/login")
 public class LoginServlet extends HttpServlet {

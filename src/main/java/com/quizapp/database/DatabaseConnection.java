@@ -1,4 +1,4 @@
-package com.quizapp.DaoPattern;
+package com.quizapp.database;
 
 import java.sql.*;
 import java.util.*;

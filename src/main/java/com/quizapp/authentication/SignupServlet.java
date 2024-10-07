@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.*;
 import java.io.*;
 import java.sql.*;
 import org.mindrot.jbcrypt.BCrypt;
-import com.quizapp.DaoPattern.DatabaseConnection;
+import com.quizapp.database.DatabaseConnection;
 
 @WebServlet("/api/signup")
 public class SignupServlet extends HttpServlet {
