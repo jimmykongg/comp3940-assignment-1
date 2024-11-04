@@ -26,7 +26,7 @@ public class SignupServlet extends HttpServlet {
         try {
             con = DatabaseConnection.initializeDatabase();
 
-            if (isUserNotExisted(username, con, res)) {
+            if (isUserNotExisted(usernamee, con, res)) {
                 insertUser(username, password, con, res);
                 HttpSession session = req.getSession();
                 session.setAttribute("username", username);
