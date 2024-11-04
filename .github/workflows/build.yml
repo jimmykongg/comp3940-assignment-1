@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-java@v2
         with: 
           java-version: '17'
-          distribution: 'jdk'  
+          distribution: 'temurin'
           architecture: 'x64'  
             
       # Runs a single command using the runners shell
