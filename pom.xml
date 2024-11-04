@@ -26,12 +26,12 @@
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
-      <version>1.9.7</version> <!-- Updated to match the runtime -->
+      <version>1.9.7</version> 
     </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjweaver</artifactId>
-      <version>1.9.7</version> <!-- Updated to match the runtime -->
+      <version>1.9.7</version> 
     </dependency>
     <dependency>
       <groupId>org.postgresql</groupId>
@@ -121,6 +121,11 @@
         </configuration>
       </plugin>
       <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-war-plugin</artifactId>
+         <version>3.3.1</version> 
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>aspectj-maven-plugin</artifactId>
         <version>1.14.0</version>
@@ -136,10 +141,7 @@
         <executions>
           <execution>
             <goals>
-              <!-- use this goal to weave all your main classes -->
               <goal>compile</goal>
-              <!-- use this goal to weave all your test classes -->
-<!--              <goal>test-compile</goal>-->
             </goals>
           </execution>
         </executions>
