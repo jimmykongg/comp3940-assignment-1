@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.*;
 import java.util.*;
 import com.quizapp.database.DatabaseConnection;
 
+
 @WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
     @Override
@@ -21,6 +22,8 @@ public class AdminServlet extends HttpServlet {
             System.out.println(e.getStackTrace());
         }
     }
+
+    // Test comment for workflow
 
 
 
