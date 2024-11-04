@@ -34,14 +34,13 @@ jobs:
           distribution: 'temurin'
           architecture: 'x64'  
             
-      # Runs a single command using the runners shell
       - name: Build with Maven
         run: mvn clean install -f pom.xml
         
-      - name: Archive build artifacts
+      - name: Build Artifact
         if: success()
         uses: actions/upload-artifact@v3
         with:
-            name: my-servlet-app
+            name: QuizApp
             path: target/*.war
   
