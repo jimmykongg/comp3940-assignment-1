@@ -26,7 +26,9 @@ jobs:
       - name: JDK setup
         uses: actions/setup-java@v2
         with: 
-            java-version: '17'
+          java-version: '17'
+          distribution: 'jdk'  
+          architecture: 'x64'  
             
       # Runs a single command using the runners shell
       - name: Build with Maven
