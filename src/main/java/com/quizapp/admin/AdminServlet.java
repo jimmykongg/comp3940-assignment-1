@@ -8,7 +8,7 @@ import com.quizapp.database.DatabaseConnection;
 
 
 @WebServlet("/admin")
-public class dAdinServlet extends HttpServlet {
+public class AdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res){
 
